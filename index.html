@@ -1646,6 +1646,147 @@
       transform: translateY(-2px) scale(1.06) !important;
     }
 
+
+    /* ==========================================================================
+       MOBILE NATIVE BOTTOM-SHEET & RESPONSIVE MODAL SYSTEM (iOS & ANDROID)
+       ========================================================================== */
+    @keyframes slideUpBottom {
+      from {
+        transform: translateY(100%);
+        opacity: 0.5;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .modal-overlay {
+        align-items: flex-end !important;
+        justify-content: center !important;
+        padding: 0 !important;
+        background: rgba(0, 0, 0, 0.78) !important;
+        backdrop-filter: blur(10px) !important;
+        -webkit-backdrop-filter: blur(10px) !important;
+      }
+
+      .modal-card,
+      .modal-content,
+      .cyber-pin-modal {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        height: 94vh !important;
+        max-height: 94vh !important;
+        margin: 0 !important;
+        border-radius: 26px 26px 0 0 !important;
+        padding: 12px 16px 28px 16px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        box-shadow: 0 -15px 50px rgba(0, 0, 0, 0.95), 0 0 20px rgba(6, 182, 212, 0.15) !important;
+        border-bottom: none !important;
+        animation: slideUpBottom 0.32s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        box-sizing: border-box !important;
+      }
+
+      /* Pull-down handle indicator bar on top of modal */
+      .modal-card::before,
+      .modal-content::before,
+      .cyber-pin-modal::before {
+        content: '' !important;
+        display: block !important;
+        width: 44px !important;
+        height: 5px !important;
+        background: rgba(148, 163, 184, 0.4) !important;
+        border-radius: 3px !important;
+        margin: 0 auto 12px auto !important;
+        flex-shrink: 0 !important;
+      }
+
+      .modal-header {
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 50 !important;
+        background: inherit !important;
+        padding-bottom: 12px !important;
+        margin-bottom: 6px !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+        flex-shrink: 0 !important;
+      }
+
+      .modal-body {
+        flex: 1 !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        padding: 10px 2px 24px 2px !important;
+      }
+
+      /* Mobile Tabs: Smooth Horizontal Scrollable Pill Chips */
+      .detail-tabs-list,
+      .modal-tabs {
+        display: flex !important;
+        overflow-x: auto !important;
+        white-space: nowrap !important;
+        padding: 4px 2px 10px 2px !important;
+        gap: 8px !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important;
+      }
+      .detail-tabs-list::-webkit-scrollbar,
+      .modal-tabs::-webkit-scrollbar {
+        display: none !important;
+      }
+
+      .detail-tab-btn {
+        padding: 8px 16px !important;
+        font-size: 0.84rem !important;
+        border-radius: 20px !important;
+        flex-shrink: 0 !important;
+      }
+
+      /* Touch-Friendly Form Fields & Inputs */
+      .form-input,
+      select.form-input {
+        min-height: 44px !important;
+        font-size: 16px !important; /* 16px prevents iOS Safari auto-zoom */
+        border-radius: 12px !important;
+      }
+
+      .form-grid-2,
+      .form-grid-3,
+      .form-grid-4 {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+      }
+
+      /* Mobile Touch-Friendly Task Items */
+      .task-item {
+        padding: 10px 12px !important;
+        border-radius: 12px !important;
+        flex-wrap: wrap !important;
+        gap: 8px !important;
+      }
+
+      .task-item span {
+        font-size: 0.88rem !important;
+      }
+
+      /* Mobile Drawer Floating Pudding AI Drawer */
+      .ai-chat-drawer {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        height: 88vh !important;
+        border-radius: 24px 24px 0 0 !important;
+        bottom: 0 !important;
+        right: 0 !important;
+      }
+
+      /* Mobile Table & Cards */
+      .stat-card {
+        padding: 12px 14px !important;
+      }
+    }
+
 </style>
   <!-- Google Firebase Cloud SDK (v10.8.0 Compat) -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
@@ -6566,7 +6707,7 @@
                 <div className="brand-title" style={{display:'flex', alignItems:'center', gap:8}}>
                   {t('appTitle')}
                   <span style={{fontSize:'0.72rem', background:'rgba(99, 102, 241, 0.18)', color:'var(--accent-cyan)', padding:'2px 8px', borderRadius:10, border:'1px solid var(--primary-hover)', fontWeight:600}}>
-                    v5.5 • 2026-08-14 15:35 RBAC ENFORCED MASTER
+                    v5.6 • 2026-08-14 16:55 MOBILE NATIVE SHEET MASTER
                   </span>
                 </div>
                 <div className="brand-subtitle">{t('appSubtitle')}</div>
