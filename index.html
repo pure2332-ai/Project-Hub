@@ -1576,6 +1576,11 @@
     }
 
   </style>
+  <!-- Google Firebase Cloud SDK (v10.8.0 Compat) -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
 </head>
 <body>
   <div id="root"></div>
@@ -1753,6 +1758,106 @@
     };
 
     const SECURITY_PIN = '2332';
+    
+    // ==========================================================================
+    // GOOGLE FIREBASE CLOUD DATABASE & AUTHENTICATION REAL-TIME ENGINE
+    // ==========================================================================
+    const firebaseConfig = {
+      apiKey: "AIzaSyCx5owcCUxO5E3ejCyP6TVXvWLeIzQIHc8",
+      authDomain: "projecthub-f30da.firebaseapp.com",
+      projectId: "projecthub-f30da",
+      storageBucket: "projecthub-f30da.firebasestorage.app",
+      messagingSenderId: "454917996733",
+      appId: "1:454917996733:web:4e772bb3bdafb1a061f7d4",
+      measurementId: "G-4K4VZYY179"
+    };
+
+    let fbApp = null;
+    let fbAuth = null;
+    let fbDb = null;
+
+    try {
+      if (typeof firebase !== 'undefined') {
+        if (!firebase.apps.length) {
+          fbApp = firebase.initializeApp(firebaseConfig);
+        } else {
+          fbApp = firebase.app();
+        }
+        fbAuth = firebase.auth();
+        fbDb = firebase.firestore();
+        
+        // Enable offline persistence
+        fbDb.enablePersistence({ synchronizeTabs: true }).catch(function(err) {
+          console.warn('Firestore persistence:', err.code);
+        });
+      }
+    } catch(err) {
+      console.warn('Firebase init:', err);
+    }
+
+    const CloudSyncService = {
+      subscribeProjects: function(onUpdate) {
+        if (!fbDb) return function() {};
+        try {
+          return fbDb.collection('projects').onSnapshot(
+            function(snapshot) {
+              if (!snapshot.empty) {
+                var list = [];
+                snapshot.forEach(function(doc) {
+                  list.push(Object.assign({ id: doc.id }, doc.data()));
+                });
+                onUpdate(list);
+              } else {
+                CloudSyncService.seedInitialProjects(defaultProjects);
+              }
+            },
+            function(err) {
+              console.warn('Firestore real-time sync notice:', err);
+            }
+          );
+        } catch(e) {
+          return function() {};
+        }
+      },
+
+      seedInitialProjects: function(projectsToSeed) {
+        if (!fbDb) return;
+        try {
+          var batch = fbDb.batch();
+          projectsToSeed.forEach(function(proj) {
+            var docRef = fbDb.collection('projects').doc(proj.id);
+            batch.set(docRef, Object.assign({}, proj, {
+              updatedAt: new Date().toISOString(),
+              updatedBy: 'System Seed'
+            }));
+          });
+          batch.commit();
+        } catch(e) {}
+      },
+
+      saveProject: function(project, userEmail) {
+        if (!fbDb) return;
+        try {
+          var docRef = fbDb.collection('projects').doc(project.id);
+          docRef.set(Object.assign({}, project, {
+            updatedAt: new Date().toISOString(),
+            updatedBy: userEmail || 'Team Member'
+          }), { merge: true });
+        } catch(e) {
+          console.warn('Cloud save:', e);
+        }
+      },
+
+      deleteProject: function(projectId) {
+        if (!fbDb) return;
+        try {
+          fbDb.collection('projects').doc(projectId).delete();
+        } catch(e) {
+          console.warn('Cloud delete:', e);
+        }
+      }
+    };
+
     const STORAGE_KEY = 'project_hub_full_integration_v3';
     const THEME_KEY = 'project_hub_theme';
     const LANG_KEY = 'project_hub_lang';
@@ -5541,6 +5646,291 @@
     }
 
 
+    
+    // ==========================================================================
+    // MULTI-USER AUTHENTICATION & CLOUD ACCOUNT MODAL
+    
+    // ==========================================================================
+    // MULTI-USER AUTHENTICATION & CLOUD ACCOUNT MODAL (PERFECT CENTERING & BILINGUAL)
+    // ==========================================================================
+    function AuthModal({ isOpen, onClose, currentUser, onLoginSuccess, lang = 'th' }) {
+      const [email, setEmail] = useState('');
+      const [password, setPassword] = useState('');
+      const [authError, setAuthError] = useState('');
+      const [isLoading, setIsLoading] = useState(false);
+
+      if (!isOpen) return null;
+
+      const handleLogin = async (e) => {
+        e.preventDefault();
+        if (!fbAuth) {
+          setAuthError(lang === 'en' ? 'Firebase Authentication not loaded' : 'ระบบ Firebase ยังไม่พร้อมใช้งาน');
+          return;
+        }
+        if (!email.trim() || !password.trim()) {
+          setAuthError(lang === 'en' ? 'Please enter both email and password.' : 'กรุณากรอกทั้งอีเมลและรหัสผ่านค่ะ');
+          return;
+        }
+
+        setIsLoading(true);
+        setAuthError('');
+
+        try {
+          const userCredential = await fbAuth.signInWithEmailAndPassword(email.trim(), password);
+          onLoginSuccess(userCredential.user);
+          onClose();
+        } catch (err) {
+          console.warn('Login error:', err);
+          if (err.code === 'auth/user-not-found' || err.code === 'auth/wrong-password' || err.code === 'auth/invalid-credential') {
+            setAuthError(lang === 'en' ? '❌ Invalid email or password. Please check your credentials.' : '❌ อีเมลหรือรหัสผ่านไม่ถูกต้อง กรุณาตรวจสอบอีกครั้งค่ะ');
+          } else if (err.code === 'auth/invalid-email') {
+            setAuthError(lang === 'en' ? '❌ Invalid email address format.' : '❌ รูปแบบอีเมลไม่ถูกต้องค่ะ');
+          } else {
+            setAuthError('❌ ' + err.message);
+          }
+        } finally {
+          setIsLoading(false);
+        }
+      };
+
+      const handleLogout = async () => {
+        if (fbAuth) {
+          await fbAuth.signOut();
+          onLoginSuccess(null);
+          onClose();
+        }
+      };
+
+      return (
+        <div className="modal-overlay" style={{ zIndex: 3100 }} onClick={onClose}>
+          <div 
+            className="modal-content" 
+            style={{
+              maxWidth: 420, 
+              padding: 28, 
+              borderRadius: 24, 
+              border: '1.5px solid rgba(59, 130, 246, 0.45)', 
+              background: 'rgba(15, 23, 42, 0.98)', 
+              boxShadow: '0 25px 65px rgba(0,0,0,0.9), 0 0 35px rgba(59, 130, 246, 0.25)', 
+              backdropFilter: 'blur(24px)',
+              WebkitBackdropFilter: 'blur(24px)'
+            }} 
+            onClick={e => e.stopPropagation()}
+          >
+            {currentUser ? (
+              /* ALREADY LOGGED IN VIEW */
+              <div style={{ textAlign: 'center' }}>
+                <div style={{
+                  width: 64,
+                  height: 64,
+                  borderRadius: '50%',
+                  background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '0 auto 14px',
+                  fontSize: '1.8rem',
+                  boxShadow: '0 0 25px rgba(59, 130, 246, 0.45)'
+                }}>
+                  👤
+                </div>
+
+                <div style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 6,
+                  background: 'rgba(16, 185, 129, 0.15)',
+                  color: '#34d399',
+                  border: '1px solid rgba(16, 185, 129, 0.4)',
+                  padding: '4px 14px',
+                  borderRadius: 20,
+                  fontSize: '0.78rem',
+                  fontWeight: 700,
+                  marginBottom: 12
+                }}>
+                  <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#10b981', display: 'inline-block' }} />
+                  <span>{lang === 'en' ? 'Cloud Sync Active (Online)' : 'เชื่อมต่อ Cloud Sync สำเร็จ'}</span>
+                </div>
+
+                <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#ffffff', marginBottom: 4 }}>
+                  {currentUser.email}
+                </h3>
+                <p style={{ fontSize: '0.82rem', color: '#94a3b8', marginBottom: 22 }}>
+                  {lang === 'en' ? 'Team Member Account (Real-time Cloud Sync)' : 'บัญชีสมาชิกทีม (ซิงค์ข้อมูล Real-time ทันที)'}
+                </p>
+
+                <div style={{ display: 'flex', gap: 12 }}>
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    style={{
+                      flex: 1,
+                      height: 46,
+                      padding: '0 16px',
+                      borderRadius: 12,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '0.9rem',
+                      fontWeight: 700,
+                      cursor: 'pointer'
+                    }}
+                    onClick={onClose}
+                  >
+                    <span>{lang === 'en' ? 'Close' : 'ปิดหน้าต่าง'}</span>
+                  </button>
+                  <button
+                    type="button"
+                    className="btn btn-danger"
+                    style={{
+                      flex: 1,
+                      height: 46,
+                      padding: '0 16px',
+                      borderRadius: 12,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '0.9rem',
+                      fontWeight: 700,
+                      cursor: 'pointer'
+                    }}
+                    onClick={handleLogout}
+                  >
+                    <span>{lang === 'en' ? 'Logout' : 'ออกจากระบบ'}</span>
+                  </button>
+                </div>
+              </div>
+            ) : (
+              /* LOGIN FORM VIEW */
+              <div>
+                <div style={{
+                  width: 58,
+                  height: 58,
+                  borderRadius: '50%',
+                  background: 'rgba(59, 130, 246, 0.15)',
+                  border: '1.5px solid rgba(59, 130, 246, 0.4)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  margin: '0 auto 14px',
+                  boxShadow: '0 0 20px rgba(59, 130, 246, 0.3)'
+                }}>
+                  <Icon name="key" size={26} color="var(--accent-cyan)" />
+                </div>
+
+                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#ffffff', textAlign: 'center', marginBottom: 6 }}>
+                  {lang === 'en' ? 'Team Cloud Login (Firebase)' : 'เข้าสู่ระบบทีม (Firebase Cloud)'}
+                </h3>
+                <p style={{ fontSize: '0.84rem', color: '#94a3b8', textAlign: 'center', marginBottom: 20, lineHeight: 1.4 }}>
+                  {lang === 'en' ? 'Sign in with your team email to sync projects in real-time.' : 'เข้าสู่ระบบด้วยอีเมลของท่านเพื่อซิงค์ข้อมูลสดพร้อมกัน 3 คนค่ะ'}
+                </p>
+
+                {authError && (
+                  <div style={{
+                    background: 'rgba(244, 63, 94, 0.15)',
+                    border: '1px solid rgba(244, 63, 94, 0.4)',
+                    padding: '9px 14px',
+                    borderRadius: 12,
+                    fontSize: '0.8rem',
+                    color: '#fda4af',
+                    marginBottom: 16,
+                    lineHeight: 1.4
+                  }}>
+                    {authError}
+                  </div>
+                )}
+
+                <form onSubmit={handleLogin} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                  <div>
+                    <label style={{ fontSize: '0.8rem', color: '#cbd5e1', fontWeight: 700, display: 'block', marginBottom: 6 }}>
+                      {lang === 'en' ? 'Team Email Address' : 'อีเมลสมาชิกทีม'}
+                    </label>
+                    <input
+                      type="email"
+                      className="form-input"
+                      style={{ width: '100%', padding: '11px 14px', borderRadius: 12, background: '#1e293b', borderColor: '#334155', fontSize: '0.9rem' }}
+                      placeholder="name@company.com"
+                      value={email}
+                      onChange={e => setEmail(e.target.value)}
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label style={{ fontSize: '0.8rem', color: '#cbd5e1', fontWeight: 700, display: 'block', marginBottom: 6 }}>
+                      {lang === 'en' ? 'Password' : 'รหัสผ่าน'}
+                    </label>
+                    <input
+                      type="password"
+                      className="form-input"
+                      style={{ width: '100%', padding: '11px 14px', borderRadius: 12, background: '#1e293b', borderColor: '#334155', fontSize: '0.9rem' }}
+                      placeholder="••••••••"
+                      value={password}
+                      onChange={e => setPassword(e.target.value)}
+                      required
+                    />
+                  </div>
+
+                  <div style={{ display: 'flex', gap: 12, marginTop: 10 }}>
+                    <button
+                      type="button"
+                      className="btn btn-secondary"
+                      style={{
+                        flex: 1,
+                        height: 46,
+                        padding: '0 16px',
+                        borderRadius: 12,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '0.9rem',
+                        fontWeight: 700,
+                        cursor: 'pointer'
+                      }}
+                      onClick={onClose}
+                    >
+                      <span>{lang === 'en' ? 'Cancel' : 'ยกเลิก'}</span>
+                    </button>
+                    <button
+                      type="submit"
+                      className="btn btn-primary"
+                      style={{
+                        flex: 1.3,
+                        height: 46,
+                        padding: '0 18px',
+                        borderRadius: 12,
+                        background: 'linear-gradient(135deg, #3b82f6, #6366f1)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: 8,
+                        fontSize: '0.92rem',
+                        fontWeight: 800,
+                        boxShadow: '0 4px 15px rgba(59, 130, 246, 0.45)',
+                        cursor: isLoading ? 'not-allowed' : 'pointer'
+                      }}
+                      disabled={isLoading}
+                    >
+                      {isLoading ? (
+                        <span>{lang === 'en' ? 'Signing in...' : 'กำลังเข้าสู่ระบบ...'}</span>
+                      ) : (
+                        <React.Fragment>
+                          <span>{lang === 'en' ? 'Sign In' : 'เข้าสู่ระบบ'}</span>
+                          <span style={{ fontSize: '1.05rem', fontWeight: 900 }}>➔</span>
+                        </React.Fragment>
+                      )}
+                    </button>
+                  </div>
+                </form>
+              </div>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+
     function App() {
       const [isLoading, setIsLoading] = useState(true);
       const [theme, setTheme] = useState(() => localStorage.getItem(THEME_KEY) || 'dark');
@@ -5596,6 +5986,30 @@
       const [toastMsg, setToastMsg] = useState('');
       const [expandedGanttProjectId, setExpandedGanttProjectId] = useState(null);
       const [pinModalConfig, setPinModalConfig] = useState(null); // { title, warningText, onConfirm }
+      const [currentUser, setCurrentUser] = useState(null);
+      const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+      const [isCloudOnline, setIsCloudOnline] = useState(true);
+
+      // 1. Listen to Firebase Auth State (Auto-Login Session)
+      useEffect(() => {
+        if (fbAuth) {
+          const unsubscribe = fbAuth.onAuthStateChanged(user => {
+            setCurrentUser(user);
+          });
+          return () => unsubscribe();
+        }
+      }, []);
+
+      // 2. Real-Time Cloud Firestore Sync Listener (Instant Multi-Device Synchronization)
+      useEffect(() => {
+        const unsubscribe = CloudSyncService.subscribeProjects((cloudProjects) => {
+          if (cloudProjects && cloudProjects.length > 0) {
+            setProjects(cloudProjects);
+            setIsCloudOnline(true);
+          }
+        });
+        return () => unsubscribe();
+      }, []);
       
 
       useEffect(() => {
@@ -5633,6 +6047,7 @@
           setProjects(prev => [projData, ...prev]);
           showToast(t('toastCreateSuccess'));
         }
+        CloudSyncService.saveProject(projData, currentUser ? currentUser.email : 'Team Member');
         setIsFormOpen(false);
         setEditingProject(null);
       };
@@ -5647,6 +6062,7 @@
             setProjects(prev => prev.filter(p => p.id !== id));
             if (selectedProject?.id === id) setSelectedProject(null);
             showToast(t('toastDeleteSuccess'));
+            CloudSyncService.deleteProject(id);
           }
         });
       };
@@ -5655,6 +6071,7 @@
         setProjects(prevProjects => prevProjects.map(p => p.id === updated.id ? updated : p));
         setSelectedProject(prevSelected => prevSelected ? updated : null);
         showToast(t('toastDatesSaved'));
+        CloudSyncService.saveProject(updated, currentUser ? currentUser.email : 'Team Member');
       };
 
       // Export Executive Summary to Excel (.csv with UTF-8 BOM) matching exact column structure requested by user
@@ -5818,7 +6235,7 @@
                 <div className="brand-title" style={{display:'flex', alignItems:'center', gap:8}}>
                   {t('appTitle')}
                   <span style={{fontSize:'0.72rem', background:'rgba(99, 102, 241, 0.18)', color:'var(--accent-cyan)', padding:'2px 8px', borderRadius:10, border:'1px solid var(--primary-hover)', fontWeight:600}}>
-                    v5.0 • 2026-08-14 13:30 UNIVERSAL MASTER
+                    v5.2 • 2026-08-14 15:10 FIREBASE PRODUCTION MASTER
                   </span>
                 </div>
                 <div className="brand-subtitle">{t('appSubtitle')}</div>
@@ -5826,6 +6243,43 @@
             </div>
 
             <div className="nav-actions">
+
+              {/* FIREBASE CLOUD SYNC & USER PROFILE PILL */}
+              <div className="nav-btn-wrap">
+                <button 
+                  type="button" 
+                  className="btn-icon" 
+                  style={{
+                    width: 'auto',
+                    padding: '5px 12px',
+                    borderRadius: 20,
+                    background: currentUser ? 'rgba(16, 185, 129, 0.15)' : 'rgba(59, 130, 246, 0.15)',
+                    border: currentUser ? '1px solid rgba(16, 185, 129, 0.4)' : '1px solid rgba(59, 130, 246, 0.4)',
+                    color: currentUser ? '#34d399' : '#60a5fa',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    fontSize: '0.78rem',
+                    fontWeight: 700
+                  }}
+                  onClick={() => setIsAuthModalOpen(true)}
+                  title={currentUser ? `Logged in as ${currentUser.email} (Click to manage)` : 'Click to Login & Sync Cloud'}
+                >
+                  <span style={{
+                    width: 7, 
+                    height: 7, 
+                    borderRadius: '50%', 
+                    background: currentUser ? '#10b981' : '#3b82f6',
+                    boxShadow: currentUser ? '0 0 6px #10b981' : '0 0 6px #3b82f6',
+                    display: 'inline-block'
+                  }} />
+                  <span>{currentUser ? currentUser.email.split('@')[0] : (lang === 'en' ? '☁️ Cloud Sync' : '☁️ ล็อกอินทีม')}</span>
+                </button>
+                <span className="nav-tooltip">{currentUser ? currentUser.email : (lang === 'en' ? 'Team Cloud Login' : 'เข้าสู่ระบบคลาวด์')}</span>
+              </div>
+
+              <div className="nav-divider"></div>
+
 
               {/* TAB SWITCHER: Dashboard / Projects */}
               <div className="nav-btn-wrap">
@@ -6559,6 +7013,17 @@
           
           
           {/* 🔒 SECURITY PIN VERIFICATION MODAL (2332) */}
+          <AuthModal 
+            isOpen={isAuthModalOpen}
+            onClose={() => setIsAuthModalOpen(false)}
+            currentUser={currentUser}
+            onLoginSuccess={(user) => {
+              setCurrentUser(user);
+              showToast(user ? (lang === 'en' ? `Welcome back, ${user.email}!` : `ยินดีต้อนรับคุณ ${user.email} เข้าสู่ระบบค่ะ!`) : (lang === 'en' ? 'Logged out successfully' : 'ออกจากระบบเรียบร้อยแล้วค่ะ'));
+            }}
+            lang={lang}
+          />
+          
           <SecurityPinModal 
             isOpen={pinModalConfig !== null}
             onClose={() => setPinModalConfig(null)}
