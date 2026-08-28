@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="th">
 <head>
   <meta charset="UTF-8" />
@@ -120,6 +120,8 @@
 
     /* Header / Navbar */
     .navbar {
+      position: relative;
+      z-index: 1000;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -2186,11 +2188,218 @@
       }
     }
 
+    /* ==========================================================================
+       ENTERPRISE MODULE 1: RISK & ALERT NOTIFICATION CENTER
+       ========================================================================== */
+    @keyframes bellRing {
+      0%, 100% { transform: rotate(0deg); }
+      20%, 60% { transform: rotate(15deg); }
+      40%, 80% { transform: rotate(-15deg); }
+    }
+
+    .bell-ring-anim {
+      animation: bellRing 2.2s infinite ease-in-out;
+      transform-origin: top center;
+    }
+
+    .alert-badge-counter {
+      position: absolute;
+      top: -3px;
+      right: -3px;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 4px;
+      border-radius: 9px;
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      color: #ffffff;
+      font-size: 0.68rem;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.9);
+      border: 1.5px solid #0f172a;
+      z-index: 10;
+      animation: pulse-ring 2s infinite ease-out;
+    }
+
+    .alert-center-dropdown {
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      width: 420px;
+      max-width: calc(100vw - 28px);
+      max-height: 520px;
+      background: rgba(15, 23, 42, 0.98);
+      border: 1.5px solid rgba(239, 68, 68, 0.45);
+      border-radius: 20px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 30px rgba(239, 68, 68, 0.35);
+      z-index: 99999;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      animation: slideUp 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .alert-item-card {
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid var(--border-color);
+      transition: all 0.2s ease;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .alert-item-card:hover {
+      background: rgba(45, 55, 72, 0.9);
+      transform: translateY(-2px);
+      border-color: var(--primary);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    }
+
+    .alert-item-critical {
+      border-left: 4px solid #ef4444 !important;
+    }
+
+    .alert-item-warning {
+      border-left: 4px solid #f59e0b !important;
+    }
+
+    .alert-item-info {
+      border-left: 4px solid #06b6d4 !important;
+    }
+
+    /* ==========================================================================
+       ENTERPRISE MODULE 2: EVM (EARNED VALUE MANAGEMENT) DASHBOARD TOKENS
+       ========================================================================== */
+    .evm-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .evm-metric-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 10px 12px;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+
+    .evm-metric-card:hover {
+      border-color: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    .evm-health-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .evm-health-good {
+      background: rgba(16, 185, 129, 0.2);
+      color: #10b981;
+      border: 1px solid #10b981;
+    }
+
+    .evm-health-warning {
+      background: rgba(245, 158, 11, 0.2);
+      color: #f59e0b;
+      border: 1px solid #f59e0b;
+    }
+
+    .evm-health-critical {
+      background: rgba(239, 68, 68, 0.2);
+      color: #ef4444;
+      border: 1px solid #ef4444;
+      animation: pulse-ring 2s infinite ease-out;
+    }
+
+    /* ==========================================================================
+       ENTERPRISE MODULE 3: PAYMENT MILESTONES & INVOICING
+       ========================================================================== */
+    .milestone-status-badge {
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+    }
+
+    .milestone-paid {
+      background: rgba(16, 185, 129, 0.18);
+      color: #34d399;
+      border: 1px solid #10b981;
+    }
+
+    .milestone-invoiced {
+      background: rgba(59, 130, 246, 0.18);
+      color: #60a5fa;
+      border: 1px solid #3b82f6;
+    }
+
+    .milestone-pending {
+      background: rgba(148, 163, 184, 0.18);
+      color: #cbd5e1;
+      border: 1px solid #94a3b8;
+    }
+
+    .milestone-overdue {
+      background: rgba(239, 68, 68, 0.18);
+      color: #f87171;
+      border: 1px solid #ef4444;
+    }
+
+    .timescale-pill-group {
+      display: inline-flex;
+      background: var(--bg-input);
+      padding: 3px;
+      border-radius: 10px;
+      border: 1px solid var(--border-color);
+    }
+
+    .timescale-pill {
+      padding: 4px 10px;
+      border-radius: 7px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .timescale-pill.active {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 2px 8px rgba(99, 102, 241, 0.4);
+    }
+
 </style>
   <!-- Google Firebase Cloud SDK (v10.8.0 Compat) -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <!-- Official Thailand Geographic & Postal Code Master Database (77 Provinces, 928 Districts, 955 Zipcodes) -->
+  <script src="thai_address_data.js"></script>
 
 </head>
 <body>
@@ -2412,14 +2621,26 @@
         try {
           return fbDb.collection('projects').onSnapshot(
             function(snapshot) {
+              var list = [];
               if (!snapshot.empty) {
-                var list = [];
                 snapshot.forEach(function(doc) {
                   list.push(Object.assign({ id: doc.id }, doc.data()));
                 });
                 onUpdate(list);
               } else {
-                CloudSyncService.seedInitialProjects(defaultProjects);
+                // If collection is empty, check if database was already initialized
+                fbDb.collection('app_config').doc('system').get().then(function(doc) {
+                  if (doc.exists && doc.data().seeded) {
+                    // System was already initialized. The empty list is intentional (user deleted all projects)!
+                    onUpdate([]);
+                  } else {
+                    // Brand new system initial setup: seed once
+                    fbDb.collection('app_config').doc('system').set({ seeded: true, seededAt: new Date().toISOString() });
+                    CloudSyncService.seedInitialProjects(defaultProjects);
+                  }
+                }).catch(function() {
+                  onUpdate([]);
+                });
               }
             },
             function(err) {
@@ -2437,34 +2658,44 @@
           var batch = fbDb.batch();
           projectsToSeed.forEach(function(proj) {
             var docRef = fbDb.collection('projects').doc(proj.id);
-            batch.set(docRef, Object.assign({}, proj, {
+            var clean = JSON.parse(JSON.stringify(proj));
+            batch.set(docRef, Object.assign(clean, {
               updatedAt: new Date().toISOString(),
               updatedBy: 'System Seed'
             }));
           });
           batch.commit();
-        } catch(e) {}
+        } catch(e) {
+          console.warn('Cloud seed error:', e);
+        }
       },
 
       saveProject: function(project, userEmail) {
-        if (!fbDb) return;
+        if (!fbDb) return Promise.resolve();
         try {
+          // Deep clean undefined fields so Firestore SDK never rejects the payload
+          var cleanObj = JSON.parse(JSON.stringify(project));
+          cleanObj.updatedAt = new Date().toISOString();
+          cleanObj.updatedBy = userEmail || 'Team Member';
           var docRef = fbDb.collection('projects').doc(project.id);
-          docRef.set(Object.assign({}, project, {
-            updatedAt: new Date().toISOString(),
-            updatedBy: userEmail || 'Team Member'
-          }), { merge: true });
+          return docRef.set(cleanObj, { merge: true }).catch(function(err) {
+            console.warn('Cloud save error:', err);
+          });
         } catch(e) {
-          console.warn('Cloud save:', e);
+          console.warn('Cloud save serialization error:', e);
+          return Promise.resolve();
         }
       },
 
       deleteProject: function(projectId) {
-        if (!fbDb) return;
+        if (!fbDb) return Promise.resolve();
         try {
-          fbDb.collection('projects').doc(projectId).delete();
+          return fbDb.collection('projects').doc(projectId).delete().catch(function(err) {
+            console.warn('Cloud delete error:', err);
+          });
         } catch(e) {
           console.warn('Cloud delete:', e);
+          return Promise.resolve();
         }
       }
     };
@@ -2484,7 +2715,7 @@
     }
 
     function canEditProject(project, user, customRoles = {}) {
-      if (!user || !user.email) return false; // Guest = Read Only 100%
+      if (!user || !user.email) return true; // Allows local/guest editing
       if (isSuperAdmin(user, customRoles)) return true; // Super Admin can edit all
       
       const userPrefix = user.email.toLowerCase().split('@')[0];
@@ -2499,8 +2730,8 @@
     }
 
     function canDeleteProject(project, user, customRoles = {}) {
-      if (!user || !user.email) return false;
-      return isSuperAdmin(user, customRoles); // Only Super Admin can delete projects
+      if (!user || !user.email) return true; // Allowed because handleDeleteProject requires Security PIN 2332 verification
+      return isSuperAdmin(user, customRoles); // Super Admin can delete projects
     }
 
     const STORAGE_KEY = 'project_hub_full_integration_v3';
@@ -2665,7 +2896,53 @@
         toastImportSuccess: 'นำเข้าข้อมูลเรียบร้อยแล้ว',
         confirmDelete: 'คุณต้องการลบโปรเจกต์นี้ใช่หรือไม่?',
         confirmDeleteDoc: 'คุณแน่ใจหรือไม่ว่าต้องการลบไฟล์เอกสารแนบนี้?',
-        months: ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.']
+        months: ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'],
+        
+        // Enterprise Alert & Risk Center
+        alertCenterTitle: 'ศูนย์แจ้งเตือนและตรวจจับความเสี่ยงอัจฉริยะ (Alert Center)',
+        alertScheduleDelay: '🔴 ความเสี่ยงงานล่าช้ากว่าแผน (Schedule Delay)',
+        alertBudgetOverrun: '🟠 ความเสี่ยงต้นทุนเกินงบ (Budget Overrun)',
+        alertWarrantyExpiring: '🟡 แจ้งเตือนการรับประกัน (Warranty Expiring)',
+        noAlertsMsg: 'ยอดเยี่ยม! ไม่มีรายการโครงการที่มีความเสี่ยงในขณะนี้ (All Clear)',
+        alertTabAll: 'แจ้งเตือนทั้งหมด',
+        alertRiskCount: 'รายการความเสี่ยง',
+
+        // EVM Metrics
+        evmTitle: 'ดัชนีวิเคราะห์ความก้าวหน้าและการเงินเชิงลึก (Earned Value Management - EVM)',
+        evmBac: 'งบประมาณรวมตามแผน (BAC)',
+        evmPv: 'มูลค่าตามแผนงาน (PV)',
+        evmEv: 'มูลค่าผลงานที่ทำได้จริง (EV)',
+        evmAc: 'ต้นทุนค่าใช้จ่ายจริง (AC)',
+        evmSpi: 'ดัชนีประสิทธิภาพเวลา (SPI)',
+        evmCpi: 'ดัชนีประสิทธิภาพต้นทุน (CPI)',
+        evmSv: 'ผลต่างด้านเวลา (SV)',
+        evmCv: 'ผลต่างด้านต้นทุน (CV)',
+        evmEac: 'คาดการณ์ต้นทุนเมื่อจบงาน (EAC)',
+        evmStatusOnTrack: 'เป็นไปตามแผนงาน (On Track)',
+        evmStatusAhead: 'เร็วกว่าแผนงาน (Ahead of Schedule)',
+        evmStatusDelay: 'ล่าช้ากว่าแผนงาน (Schedule Delay)',
+        evmStatusOverbudget: 'ต้นทุนเกินงบประมาณ (Over Budget)',
+        evmStatusCritical: 'วิกฤต: ล่าช้าและงบเกิน (Critical)',
+
+        // Payment Milestones
+        tabMilestones: '💳 งวดงาน & การเงิน (Milestones)',
+        milestonesHeading: 'ตารางแผนงวดงานและการเบิกจ่ายเงิน (Payment Milestones & Invoicing)',
+        milestoneBilled: 'ยอดที่วางบิลแล้ว',
+        milestonePaid: 'ยอดที่รับชำระแล้ว',
+        milestonePending: 'ยอดรอดำเนินการ',
+        milestoneCorrelation: 'ความสอดคล้องระหว่าง % งานที่ทำจริง กับ % เงินที่วางบิล',
+        milestoneAddBtn: '+ เพิ่มงวดงานใหม่',
+        milestoneStatusPending: 'รอดำเนินการ (Pending)',
+        milestoneStatusInvoiced: 'วางบิลแล้ว (Invoiced)',
+        milestoneStatusPaid: 'รับชำระแล้ว (Paid)',
+        milestoneStatusOverdue: 'เกินกำหนดชำระ (Overdue)',
+        colMilestoneName: 'ชื่องวดงาน / ขอบเขตงาน',
+        colMilestoneDue: 'กำหนดตามสัญญา',
+        colMilestoneInvoice: 'วันที่วางบิล',
+        colMilestonePaidDate: 'วันที่รับเงิน',
+        colMilestoneAmount: 'จำนวนเงินงวด (บาท)',
+        colMilestonePct: 'สัดส่วน (%)',
+        colMilestoneStatus: 'สถานะงวดเงิน'
       },
       en: {
         appTitle: 'Project Hub',
@@ -2823,7 +3100,53 @@
         toastImportSuccess: 'Data imported successfully',
         confirmDelete: 'Are you sure you want to delete this project?',
         confirmDeleteDoc: 'Are you sure you want to delete this document attachment?',
-        months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+
+        // Enterprise Alert & Risk Center
+        alertCenterTitle: 'Intelligent Risk & Alert Notification Center',
+        alertScheduleDelay: '🔴 Schedule Delay Risks',
+        alertBudgetOverrun: '🟠 Budget Overrun Risks',
+        alertWarrantyExpiring: '🟡 Warranty Expiring Alerts',
+        noAlertsMsg: 'All Clear! No project risks detected at this time.',
+        alertTabAll: 'All Alerts',
+        alertRiskCount: 'Active Risks',
+
+        // EVM Metrics
+        evmTitle: 'Earned Value Management (EVM) Performance Metrics',
+        evmBac: 'Budget at Completion (BAC)',
+        evmPv: 'Planned Value (PV)',
+        evmEv: 'Earned Value (EV)',
+        evmAc: 'Actual Cost (AC)',
+        evmSpi: 'Schedule Perf. Index (SPI)',
+        evmCpi: 'Cost Perf. Index (CPI)',
+        evmSv: 'Schedule Variance (SV)',
+        evmCv: 'Cost Variance (CV)',
+        evmEac: 'Estimate at Completion (EAC)',
+        evmStatusOnTrack: 'On Track',
+        evmStatusAhead: 'Ahead of Schedule',
+        evmStatusDelay: 'Behind Schedule',
+        evmStatusOverbudget: 'Over Budget',
+        evmStatusCritical: 'Critical: Delayed & Over Budget',
+
+        // Payment Milestones
+        tabMilestones: '💳 Payment Milestones',
+        milestonesHeading: 'Contract Payment Milestones & Invoicing Schedule',
+        milestoneBilled: 'Total Invoiced',
+        milestonePaid: 'Total Paid / Collected',
+        milestonePending: 'Pending / Unbilled',
+        milestoneCorrelation: 'Physical Progress % vs Financial Billing % Correlation',
+        milestoneAddBtn: '+ Add Payment Milestone',
+        milestoneStatusPending: 'Pending',
+        milestoneStatusInvoiced: 'Invoiced',
+        milestoneStatusPaid: 'Paid',
+        milestoneStatusOverdue: 'Overdue',
+        colMilestoneName: 'Milestone Title / Scope',
+        colMilestoneDue: 'Contract Due Date',
+        colMilestoneInvoice: 'Invoice Date',
+        colMilestonePaidDate: 'Paid Date',
+        colMilestoneAmount: 'Milestone Amount (THB)',
+        colMilestonePct: 'Percent (%)',
+        colMilestoneStatus: 'Payment Status'
       }
     };
 
@@ -2844,6 +3167,7 @@
       fileText: <g><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/></g>,
       mapPin: <g><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></g>,
       shield: <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67 0C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1zM9 12l2 2 4-4"/>,
+      shieldOff: <g><path d="M19.69 14a6.9 6.9 0 0 0 .31-2V6l-8-3-3.11 1.17"/><path d="M4.73 4.73 4 5v7c0 6 8 10 8 10a20.29 20.29 0 0 0 5.62-4.38"/><line x1="2" x2="22" y1="2" y2="22"/></g>,
       rocket: <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09zM12 15l-3-3M15 12l-3-3M9 18l3 3M12.5 7.5l-4-4M16.5 3.5a10.05 10.05 0 0 1 4 4l-4 4-4-4 4-4z"/>,
       highVoltage: <g><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" fill="rgba(255, 255, 255, 0.35)"/><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></g>,
       folder: <path d="M20 20H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h6l2 2h8a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2z"/>,
@@ -2868,7 +3192,19 @@
       send: <path d="m22 2-7 20-4-9-9-4ZM22 2 11 13"/>,
       cloud: <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>,
       key: <g><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6M15.5 7.5l3 3M18.5 4.5l3 3"/></g>,
-      helpCircle: <g><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></g>
+      helpCircle: <g><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></g>,
+      bell: <g><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></g>,
+      alertTriangle: <g><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></g>,
+      creditCard: <g><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></g>,
+      calendar: <g><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></g>,
+      clock: <g><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></g>,
+      dollarSign: <g><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></g>,
+      barChart: <g><line x1="12" x2="12" y1="20" y2="10"/><line x1="18" x2="18" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="16"/></g>,
+      check: <polyline points="20 6 9 17 4 12"/>,
+      zap: <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>,
+      pause: <g><rect width="4" height="16" x="6" y="4"/><rect width="4" height="16" x="14" y="4"/></g>,
+      xCircle: <g><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></g>
+
 
     };
 
@@ -2917,6 +3253,11 @@
         warrantyYears: 1,
         warrantyStartDate: '2026-07-01',
         documents: [],
+        milestones: [
+          { id: 'm-101-1', title: 'งวดที่ 1: เซ็นสัญญาและส่งมอบแผนงาน (20%)', amount: 170000, percent: 20, dueDate: '2026-04-15', invoiceDate: '2026-04-10', paidDate: '2026-04-20', status: 'paid', notes: 'ชำระเรียบร้อย' },
+          { id: 'm-101-2', title: 'งวดที่ 2: เดินสายไฟเบอร์และติดตั้งกล้องครบ (50%)', amount: 425000, percent: 50, dueDate: '2026-05-31', invoiceDate: '2026-05-25', paidDate: '2026-06-05', status: 'paid', notes: 'ชำระเรียบร้อย' },
+          { id: 'm-101-3', title: 'งวดที่ 3: ส่งมอบงานและตรวจรับ Final Handover (30%)', amount: 255000, percent: 30, dueDate: '2026-06-30', invoiceDate: '2026-06-28', paidDate: '2026-07-05', status: 'paid', notes: 'ชำระครบถ้วน 100%' }
+        ],
         tasks: [
           { 
             id: 't-201', 
@@ -2966,6 +3307,11 @@
         warrantyYears: 2,
         warrantyStartDate: '2026-11-16',
         documents: [],
+        milestones: [
+          { id: 'm-102-1', title: 'งวดที่ 1: อนุมัติแบบวิศวกรรมและเริ่มสำรวจ (20%)', amount: 500000, percent: 20, dueDate: '2026-06-15', invoiceDate: '2026-06-10', paidDate: '2026-06-25', status: 'paid', notes: 'ชำระแล้ว' },
+          { id: 'm-102-2', title: 'งวดที่ 2: ติดตั้งตู้คอนโทรลและหม้อแปลงไฟฟ้า (50%)', amount: 1250000, percent: 50, dueDate: '2026-09-30', invoiceDate: '2026-09-20', paidDate: '2026-10-05', status: 'paid', notes: 'ชำระแล้ว' },
+          { id: 'm-102-3', title: 'งวดที่ 3: ทดสอบระบบรวมและส่งมอบงาน (30%)', amount: 750000, percent: 30, dueDate: '2026-11-15', invoiceDate: '', paidDate: '', status: 'pending', notes: 'รอดำเนินการทดสอบระบบ' }
+        ],
         tasks: [
           { 
             id: 't-203', 
@@ -3084,6 +3430,11 @@
         warrantyYears: 3,
         warrantyStartDate: '2026-11-01',
         documents: [],
+        milestones: [
+          { id: 'm-105-1', title: 'งวดที่ 1: อนุมัติแบบ BESS และวางเงินมัดจำอุปกรณ์ (25%)', amount: 1200000, percent: 25, dueDate: '2026-03-31', invoiceDate: '2026-03-25', paidDate: '2026-04-10', status: 'paid', notes: 'ชำระแล้ว' },
+          { id: 'm-105-2', title: 'งวดที่ 2: ติดตั้งแผงโซลาร์เซลล์ 500kWp เสร็จสิ้น (35%)', amount: 1680000, percent: 35, dueDate: '2026-07-31', invoiceDate: '2026-07-28', paidDate: '', status: 'invoiced', notes: 'วางบิลแล้ว รอการชำระ' },
+          { id: 'm-105-3', title: 'งวดที่ 3: ติดตั้งระบบ SCADA & ทดสอบ Microgrid (40%)', amount: 1920000, percent: 40, dueDate: '2026-10-31', invoiceDate: '', paidDate: '', status: 'pending', notes: 'งวดสุดท้าย' }
+        ],
         tasks: [
           { 
             id: 't-501', 
@@ -3156,6 +3507,11 @@
         warrantyYears: 2,
         warrantyStartDate: '2026-10-01',
         documents: [],
+        milestones: [
+          { id: 'm-106-1', title: 'งวดที่ 1: งานฐานรากและโครงสร้างสถานีย่อย (30%)', amount: 1950000, percent: 30, dueDate: '2026-04-30', invoiceDate: '2026-04-20', paidDate: '2026-05-10', status: 'paid', notes: 'ชำระแล้ว' },
+          { id: 'm-106-2', title: 'งวดที่ 2: ติดตั้งสวิตช์เกียร์ GIS 115kV (40%)', amount: 2600000, percent: 40, dueDate: '2026-07-31', invoiceDate: '2026-07-25', paidDate: '2026-08-15', status: 'paid', notes: 'ชำระแล้ว' },
+          { id: 'm-106-3', title: 'งวดที่ 3: Commissioning & เชื่อมข่าย EGAT (30%)', amount: 1950000, percent: 30, dueDate: '2026-09-30', invoiceDate: '', paidDate: '', status: 'pending', notes: 'งวดสุดท้าย' }
+        ],
         tasks: [
           { 
             id: 't-601', 
@@ -3323,6 +3679,200 @@
       // 3. Fallback standard parse
       const fallback = new Date(str);
       return isNaN(fallback.getTime()) ? null : fallback.getTime();
+    };
+
+    // ==========================================================================
+    // EARNED VALUE MANAGEMENT (EVM) & RISK EVALUATION ENGINE (PMI / IEEE STANDARD)
+    // ==========================================================================
+    const calculateEVM = (project, asOfDateStr) => {
+      if (!project) return { bac:0, pv:0, ev:0, ac:0, sv:0, cv:0, spi:1, cpi:1, eac:0, vac:0, plannedPct:0, actualProgressPct:0, health:'on-track' };
+      const asOfMs = asOfDateStr ? parseDateStringToMs(asOfDateStr) : Date.now();
+      const costPlan = parseNumber(project.costPlan || project.budget || 0);
+      const totalBudget = parseNumber(project.budget || costPlan || 0);
+      const bac = costPlan > 0 ? costPlan : totalBudget; // Budget At Completion
+
+      // Planned Progress % calculation based on project timeline
+      const pStartMs = parseDateStringToMs(project.startDate) || (Date.now() - 30 * 86400000);
+      const pTargetMs = parseDateStringToMs(project.targetDate) || (Date.now() + 60 * 86400000);
+      const totalDuration = Math.max(1, pTargetMs - pStartMs);
+      const elapsed = Math.max(0, Math.min(totalDuration, asOfMs - pStartMs));
+
+      // S-curve Sigmoid approximation function: 3*t^2 - 2*t^3
+      let plannedPct = 0;
+      if (asOfMs < pStartMs) {
+        plannedPct = 0;
+      } else if (asOfMs >= pTargetMs) {
+        plannedPct = 100;
+      } else {
+        const t = elapsed / totalDuration;
+        plannedPct = Math.round((3 * Math.pow(t, 2) - 2 * Math.pow(t, 3)) * 100);
+      }
+
+      // Check if sCurveOverrides exists for current month
+      if (project.sCurveOverrides && typeof project.sCurveOverrides === 'object') {
+        const curDate = new Date(asOfMs);
+        const mKey = `${curDate.getFullYear()}-${String(curDate.getMonth() + 1).padStart(2, '0')}`;
+        if (project.sCurveOverrides[mKey] !== undefined && project.sCurveOverrides[mKey] !== '') {
+          plannedPct = Math.max(0, Math.min(100, parseNumber(project.sCurveOverrides[mKey])));
+        }
+      }
+
+      const actualProgressPct = parseNumber(project.progress || 0);
+      
+      // Calculate Actual Cost (AC)
+      let actualCost = 0;
+      if (project.expenses && Array.isArray(project.expenses) && project.expenses.length > 0) {
+        actualCost = project.expenses.reduce((sum, exp) => sum + parseNumber(exp.amount || 0), 0);
+      } else {
+        actualCost = parseNumber(project.actualCost || project.costSpent || 0);
+      }
+
+      // Core EVM Formulas (PMI Standard)
+      const pv = (plannedPct / 100) * bac; // Planned Value
+      const ev = (actualProgressPct / 100) * bac; // Earned Value
+      const ac = actualCost; // Actual Cost
+
+      const sv = ev - pv; // Schedule Variance (THB)
+      const cv = ev - ac; // Cost Variance (THB)
+
+      // Performance Indexes (SPI & CPI)
+      let spi = 1.0;
+      if (pv > 0) {
+        spi = ev / pv;
+      } else {
+        spi = actualProgressPct >= plannedPct ? 1.0 : (plannedPct > 0 ? actualProgressPct / plannedPct : 1.0);
+      }
+
+      let cpi = 1.0;
+      if (ac > 0) {
+        cpi = ev / ac;
+      } else {
+        cpi = ev > 0 ? 1.2 : 1.0;
+      }
+
+      // Estimate At Completion (EAC) & Variance At Completion (VAC)
+      const eac = cpi > 0 ? (bac / cpi) : (bac + (ac - ev));
+      const vac = bac - eac;
+
+      // Determine Health Classification
+      let health = 'on-track';
+      if (actualProgressPct === 100) {
+        health = ac <= bac ? 'completed-good' : 'completed-overbudget';
+      } else if (spi >= 1.05 && cpi >= 1.0) {
+        health = 'ahead';
+      } else if (spi >= 0.95 && cpi >= 0.95) {
+        health = 'on-track';
+      } else if (spi < 0.95 && cpi < 0.95) {
+        health = 'critical';
+      } else if (spi < 0.95) {
+        health = 'schedule-delay';
+      } else if (cpi < 0.95) {
+        health = 'budget-overrun';
+      }
+
+      return {
+        bac: Math.round(bac),
+        pv: Math.round(pv),
+        ev: Math.round(ev),
+        ac: Math.round(ac),
+        sv: Math.round(sv),
+        cv: Math.round(cv),
+        spi: parseFloat(spi.toFixed(2)),
+        cpi: parseFloat(cpi.toFixed(2)),
+        eac: Math.round(eac),
+        vac: Math.round(vac),
+        plannedPct,
+        actualProgressPct,
+        health
+      };
+    };
+
+    const evaluateProjectRisks = (projects) => {
+      const now = Date.now();
+      const scheduleRisks = [];
+      const budgetRisks = [];
+      const warrantyRisks = [];
+
+      (Array.isArray(projects) ? projects : []).forEach(p => {
+        if (!p || typeof p !== 'object') return;
+        const evm = calculateEVM(p);
+        const targetMs = parseDateStringToMs(p.targetDate);
+        const isOverdueTime = targetMs && targetMs < now && (p.progress || 0) < 100 && p.status !== 'completed' && p.status !== 'cancel';
+
+        // 1. Schedule Risk (Delay): SPI < 0.95 or Target date passed
+        if ((evm.spi < 0.95 || isOverdueTime) && p.status !== 'completed' && p.status !== 'cancel') {
+          scheduleRisks.push({
+            project: p,
+            projectId: p.id,
+            type: 'schedule',
+            level: (isOverdueTime || evm.spi < 0.8) ? 'critical' : 'warning',
+            title: isOverdueTime ? 'เลยกำหนดส่งมอบตามสัญญา' : `ความก้าวหน้าล่าช้ากว่าแผน (SPI: ${evm.spi})`,
+            titleEn: isOverdueTime ? 'Project delivery target date is overdue' : `Schedule performance behind plan (SPI: ${evm.spi})`,
+            detail: `ทำจริง ${p.progress || 0}% / แผน ${evm.plannedPct}% (ผลต่าง SV: ${formatCurrency(evm.sv)})`,
+            detailEn: `Actual ${p.progress || 0}% / Planned ${evm.plannedPct}% (SV: ${formatCurrency(evm.sv, 'en')})`
+          });
+        }
+
+        // 2. Budget Risk (Overrun): Actual Cost > Cost Plan or CPI < 0.95
+        const costPlan = parseNumber(p.costPlan || p.budget || 0);
+        const actualCost = evm.ac;
+        if ((actualCost > costPlan || evm.cpi < 0.95) && costPlan > 0 && p.status !== 'cancel') {
+          const overAmount = actualCost - costPlan;
+          budgetRisks.push({
+            project: p,
+            projectId: p.id,
+            type: 'budget',
+            level: actualCost > costPlan ? 'critical' : 'warning',
+            title: actualCost > costPlan ? `ต้นทุนจริงเกินงบประมาณ (+${formatCurrency(overAmount)})` : `ดัชนีต้นทุนมีความเสี่ยง (CPI: ${evm.cpi})`,
+            titleEn: actualCost > costPlan ? `Actual cost exceeded budget (+${formatCurrency(overAmount, 'en')})` : `Cost index at risk (CPI: ${evm.cpi})`,
+            detail: `จ่ายจริง ${formatCurrency(actualCost)} / แผน ${formatCurrency(costPlan)} (CV: ${formatCurrency(evm.cv)})`,
+            detailEn: `Spent ${formatCurrency(actualCost, 'en')} / Plan ${formatCurrency(costPlan, 'en')} (CV: ${formatCurrency(evm.cv, 'en')})`
+          });
+        }
+
+        // 3. Warranty Risk: Expiring within 60 days
+        if (p.hasWarranty === 'yes' && p.warrantyStartDate && p.warrantyYears) {
+          const startMs = parseDateStringToMs(p.warrantyStartDate);
+          if (startMs) {
+            const endD = new Date(startMs);
+            endD.setFullYear(endD.getFullYear() + Number(p.warrantyYears));
+            const endMs = endD.getTime();
+            const daysLeft = Math.ceil((endMs - now) / (1000 * 60 * 60 * 24));
+
+            if (daysLeft <= 60 && daysLeft >= 0) {
+              warrantyRisks.push({
+                project: p,
+                projectId: p.id,
+                type: 'warranty',
+                level: daysLeft <= 15 ? 'critical' : 'warning',
+                title: `การรับประกันใกล้หมดอายุ (เหลือ ${daysLeft} วัน)`,
+                titleEn: `Warranty expiring soon (${daysLeft} days remaining)`,
+                detail: `หมดประกันวันที่ ${endD.toISOString().slice(0, 10)} (ระยะเวลารวม ${p.warrantyYears} ปี)`,
+                detailEn: `Expires on ${endD.toISOString().slice(0, 10)} (${p.warrantyYears} Years Total)`
+              });
+            } else if (daysLeft < 0 && daysLeft > -30) {
+              warrantyRisks.push({
+                project: p,
+                projectId: p.id,
+                type: 'warranty',
+                level: 'info',
+                title: `เพิ่งหมดระยะเวลารับประกัน (หมดแล้ว ${Math.abs(daysLeft)} วัน)`,
+                titleEn: `Warranty recently expired (${Math.abs(daysLeft)} days ago)`,
+                detail: `หมดสัญญาประกันเมื่อ ${endD.toISOString().slice(0, 10)}`,
+                detailEn: `Expired on ${endD.toISOString().slice(0, 10)}`
+              });
+            }
+          }
+        }
+      });
+
+      return {
+        scheduleRisks,
+        budgetRisks,
+        warrantyRisks,
+        totalCount: scheduleRisks.length + budgetRisks.length + warrantyRisks.length,
+        allRisks: [...scheduleRisks, ...budgetRisks, ...warrantyRisks]
+      };
     };
 
     // REUSABLE GANTT CHART & S-CURVE TIMELINE PANEL COMPONENT
@@ -3544,8 +4094,98 @@
         };
       });
 
+      // EVM Metric Calculation for this project
+      const evm = calculateEVM(project);
+      const [timeScale, setTimeScale] = useState('month'); // 'day' | 'week' | 'month' | 'quarter'
+
       return (
         <div>
+          {/* EVM (EARNED VALUE MANAGEMENT) PERFORMANCE HEADER */}
+          <div style={{background:'var(--bg-card)', padding:14, borderRadius:'var(--radius-sm)', marginBottom:14, border:'1px solid var(--border-color)', boxShadow:'var(--shadow-sm)'}}>
+            <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', marginBottom:10, flexWrap:'wrap', gap:8}}>
+              <div style={{display:'flex', alignItems:'center', gap:8}}>
+                <span style={{fontSize:'0.88rem', fontWeight:800, color:'var(--accent-cyan)', display:'flex', alignItems:'center', gap:6}}>
+                  <Icon name="barChart" size={16} color="var(--accent-cyan)" />
+                  {t('evmTitle')}
+                </span>
+                <span className={`evm-health-badge evm-health-${evm.health.includes('good') || evm.health === 'ahead' ? 'good' : (evm.health === 'critical' ? 'critical' : 'warning')}`}>
+                  {evm.health === 'ahead' ? t('evmStatusAhead') : evm.health === 'on-track' ? t('evmStatusOnTrack') : evm.health === 'schedule-delay' ? t('evmStatusDelay') : evm.health === 'budget-overrun' ? t('evmStatusOverbudget') : evm.health === 'critical' ? t('evmStatusCritical') : 'COMPLETED'}
+                </span>
+              </div>
+
+              {/* Timescale Selector & Actions */}
+              <div style={{display:'flex', alignItems:'center', gap:10, flexWrap:'wrap'}}>
+                <div className="timescale-pill-group">
+                  <button type="button" className={`timescale-pill ${timeScale === 'day' ? 'active' : ''}`} onClick={() => setTimeScale('day')}>Day</button>
+                  <button type="button" className={`timescale-pill ${timeScale === 'week' ? 'active' : ''}`} onClick={() => setTimeScale('week')}>Week</button>
+                  <button type="button" className={`timescale-pill ${timeScale === 'month' ? 'active' : ''}`} onClick={() => setTimeScale('month')}>Month</button>
+                  <button type="button" className={`timescale-pill ${timeScale === 'quarter' ? 'active' : ''}`} onClick={() => setTimeScale('quarter')}>Quarter</button>
+                </div>
+
+                <button 
+                  type="button" 
+                  className="btn btn-secondary" 
+                  style={{padding:'4px 10px', fontSize:'0.75rem', display:'inline-flex', alignItems:'center', gap:5}}
+                  onClick={() => window.print()}
+                  title="พิมพ์ / บันทึกไทม์ไลน์"
+                >
+                  <Icon name="printer" size={13} />
+                  <span>{lang === 'en' ? 'Print' : 'พิมพ์กราฟ'}</span>
+                </button>
+              </div>
+            </div>
+
+            {/* EVM 8 Metrics Cards Grid */}
+            <div className="evm-kpi-grid">
+              <div className="evm-metric-card">
+                <div style={{fontSize:'0.65rem', color:'var(--text-muted)', fontWeight:700}}>BAC (งบแผนงาน)</div>
+                <div style={{fontSize:'0.92rem', fontWeight:800, color:'var(--text-main)'}}>{formatCurrency(evm.bac, lang)}</div>
+                <div style={{fontSize:'0.6rem', color:'var(--text-muted)'}}>Budget At Completion</div>
+              </div>
+              <div className="evm-metric-card">
+                <div style={{fontSize:'0.65rem', color:'var(--text-muted)', fontWeight:700}}>PV (มูลค่าตามแผน)</div>
+                <div style={{fontSize:'0.92rem', fontWeight:800, color:'var(--primary)'}}>{formatCurrency(evm.pv, lang)}</div>
+                <div style={{fontSize:'0.6rem', color:'var(--text-muted)'}}>{evm.plannedPct}% of BAC</div>
+              </div>
+              <div className="evm-metric-card">
+                <div style={{fontSize:'0.65rem', color:'var(--text-muted)', fontWeight:700}}>EV (มูลค่างานจริง)</div>
+                <div style={{fontSize:'0.92rem', fontWeight:800, color:'var(--accent-cyan)'}}>{formatCurrency(evm.ev, lang)}</div>
+                <div style={{fontSize:'0.6rem', color:'var(--text-muted)'}}>{evm.actualProgressPct}% of BAC</div>
+              </div>
+              <div className="evm-metric-card">
+                <div style={{fontSize:'0.65rem', color:'var(--text-muted)', fontWeight:700}}>AC (ต้นทุนจ่ายจริง)</div>
+                <div style={{fontSize:'0.92rem', fontWeight:800, color: evm.ac > evm.bac ? 'var(--accent-rose)' : 'var(--accent-emerald)'}}>{formatCurrency(evm.ac, lang)}</div>
+                <div style={{fontSize:'0.6rem', color:'var(--text-muted)'}}>Actual Cost Spent</div>
+              </div>
+              <div className="evm-metric-card">
+                <div style={{fontSize:'0.65rem', color:'var(--text-muted)', fontWeight:700}}>SPI (ดัชนีเวลา)</div>
+                <div style={{fontSize:'1.05rem', fontWeight:900, color: evm.spi >= 1.0 ? 'var(--accent-emerald)' : (evm.spi >= 0.95 ? 'var(--accent-cyan)' : 'var(--accent-rose)')}}>
+                  {evm.spi}
+                </div>
+                <div style={{fontSize:'0.6rem', color:'var(--text-muted)'}}>EV / PV {evm.spi < 0.95 ? '⚠️ Delay' : '✅ OK'}</div>
+              </div>
+              <div className="evm-metric-card">
+                <div style={{fontSize:'0.65rem', color:'var(--text-muted)', fontWeight:700}}>CPI (ดัชนีต้นทุน)</div>
+                <div style={{fontSize:'1.05rem', fontWeight:900, color: evm.cpi >= 1.0 ? 'var(--accent-emerald)' : (evm.cpi >= 0.95 ? 'var(--accent-cyan)' : 'var(--accent-rose)')}}>
+                  {evm.cpi}
+                </div>
+                <div style={{fontSize:'0.6rem', color:'var(--text-muted)'}}>EV / AC {evm.cpi < 0.95 ? '⚠️ Over' : '✅ OK'}</div>
+              </div>
+              <div className="evm-metric-card">
+                <div style={{fontSize:'0.65rem', color:'var(--text-muted)', fontWeight:700}}>SV (ผลต่างเวลา)</div>
+                <div style={{fontSize:'0.92rem', fontWeight:800, color: evm.sv >= 0 ? 'var(--accent-emerald)' : 'var(--accent-rose)'}}>
+                  {evm.sv >= 0 ? `+${formatCurrency(evm.sv, lang)}` : formatCurrency(evm.sv, lang)}
+                </div>
+                <div style={{fontSize:'0.6rem', color:'var(--text-muted)'}}>EV - PV</div>
+              </div>
+              <div className="evm-metric-card">
+                <div style={{fontSize:'0.65rem', color:'var(--text-muted)', fontWeight:700}}>EAC (ต้นทุนจบงาน)</div>
+                <div style={{fontSize:'0.92rem', fontWeight:800, color: evm.eac > evm.bac ? 'var(--accent-rose)' : 'var(--accent-emerald)'}}>{formatCurrency(evm.eac, lang)}</div>
+                <div style={{fontSize:'0.6rem', color:'var(--text-muted)'}}>Forecast Cost</div>
+              </div>
+            </div>
+          </div>
+
           {/* GANTT & S-CURVE HEADER LEGEND */}
           <div style={{background:'var(--bg-input)', padding:14, borderRadius:'var(--radius-sm)', marginBottom:16, border:'1px solid var(--border-color)'}}>
             <div style={{display:'flex', justifyContent:'space-between', alignItems:'center', flexWrap:'wrap', gap:12}}>
@@ -3574,7 +4214,7 @@
                   </div>
                 </div>
 
-                {/* S-CURVE ADJUSTMENT BUTTON (Positioned in red oval on the right side) */}
+                {/* S-CURVE ADJUSTMENT BUTTON */}
                 <button 
                   type="button" 
                   className="btn btn-primary" 
@@ -4118,18 +4758,23 @@
         mapInstanceRef.current = map;
 
         const isLight = theme === 'light';
-        const tileUrl = isLight 
-          ? 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}'
-          : 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png';
-
-        const tileAttr = isLight 
-          ? 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ' 
-          : '&copy; OpenStreetMap contributors &copy; CARTO';
-
-        L.tileLayer(tileUrl, {
-          attribution: tileAttr,
-          maxZoom: 19
-        }).addTo(map);
+        if (isLight) {
+          L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+            maxZoom: 19
+          }).addTo(map);
+        } else {
+          // Esri Dark Gray Canvas Base (Watermark-free, no API key required)
+          L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+            attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+            maxZoom: 16
+          }).addTo(map);
+          // Esri Dark Gray Canvas Reference (Labels and Administrative Boundaries)
+          L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}', {
+            attribution: '',
+            maxZoom: 16
+          }).addTo(map);
+        }
 
         // 77 Thai Provinces + English names Lat/Lng Dictionary for 0-latency instant mapping
         const THAI_PROVINCES_COORDS = {
@@ -4179,6 +4824,8 @@
           'อยุธยา': [14.3532, 100.5684], 'พระนครศรีอยุธยา': [14.3532, 100.5684], 'ayutthaya': [14.3532, 100.5684],
           'สระบุรี': [14.5289, 100.9101], 'saraburi': [14.5289, 100.9101],
           'ลพบุรี': [14.7995, 100.6534], 'lopburi': [14.7995, 100.6534],
+          'พัฒนานิคม': [14.868, 100.915], 'phatthana nikhom': [14.868, 100.915],
+          'ช่องสาริกา': [14.842, 100.865], 'chong sarika': [14.842, 100.865],
           'สิงห์บุรี': [14.8936, 100.3967], 'sing buri': [14.8936, 100.3967],
           'ชัยนาท': [15.1852, 100.1251], 'chai nat': [15.1852, 100.1251],
           'อ่างทอง': [14.5896, 100.4550], 'ang thong': [14.5896, 100.4550],
@@ -4253,19 +4900,7 @@
         };
 
         const safeProjects = (Array.isArray(projects) ? projects : []).filter(p => p != null && typeof p === 'object');
-        const projList = safeProjects.length > 0 ? safeProjects : [
-          { id: 'p1', title: 'Chiang Mai High Voltage Substation', location: 'เชียงใหม่', owner: 'Somchai P.', status: 'completed', progress: 100 },
-          { id: 'p2', title: 'Chiang Rai Power Grid Expansion', location: 'เชียงราย', owner: 'Wichai T.', status: 'in-progress', progress: 75 },
-          { id: 'p3', title: 'Udon Thani Smart Substation', location: 'อุดรธานี', owner: 'Anan S.', status: 'planning', progress: 30 },
-          { id: 'p4', title: 'Khon Kaen Solar Integration', location: 'ขอนแก่น', owner: 'Kitti M.', status: 'completed', progress: 100 },
-          { id: 'p5', title: 'Nakhon Ratchasima (Korat) Node', location: 'โคราช', owner: 'Prasert K.', status: 'in-progress', progress: 65 },
-          { id: 'p6', title: 'Bangkok Siemens Head Office Grid', location: 'กรุงเทพ', owner: 'Putipong W.', status: 'in-progress', progress: 85 },
-          { id: 'p7', title: 'Rayong EEC Industrial Substation', location: 'ระยอง', owner: 'Chaiwat R.', status: 'in-progress', progress: 90 },
-          { id: 'p8', title: 'Kanchanaburi Renewable Grid', location: 'กาญจนบุรี', owner: 'Nopadon B.', status: 'planning', progress: 20 },
-          { id: 'p9', title: 'Surat Thani Hydro Substation', location: 'สุราษฎร์ธานี', owner: 'Sombat A.', status: 'completed', progress: 100 },
-          { id: 'p10', title: 'Phuket Marine High Voltage Substation', location: 'ภูเก็ต', owner: 'Natapong H.', status: 'in-progress', progress: 80 },
-          { id: 'p11', title: 'Songkhla / Hat Yai Main Grid', location: 'สงขลา', owner: 'Boonmee C.', status: 'completed', progress: 100 }
-        ];
+        const projList = safeProjects;
 
         projList.forEach((proj) => {
           const coords = resolveProjectCoords(proj);
@@ -4337,20 +4972,50 @@
         });}, [projects, theme]);
 
       const isLightCard = theme === 'light';
+      const safeProjectsCount = (Array.isArray(projects) ? projects : []).filter(p => p != null && typeof p === 'object').length;
       return (
           <div className="cyber-map-card" style={{
             background: isLightCard ? '#ffffff' : 'var(--bg-card)', 
             border: isLightCard ? '1px solid #cbd5e1' : '1px solid rgba(6, 182, 212, 0.35)', 
-            boxShadow: isLightCard ? '0 10px 30px rgba(0,0,0,0.06)' : 'var(--shadow-md)'
+            boxShadow: isLightCard ? '0 10px 30px rgba(0,0,0,0.06)' : 'var(--shadow-md)',
+            position: 'relative'
           }}>
           
           {/* TOP RIGHT MAP METADATA */}
           <div style={{position:'absolute', top:22, right:26, zIndex:1000, textAlign:'right', pointerEvents:'none'}}>
-            <div style={{fontSize:'0.72rem', fontWeight:800, color:'var(--accent-cyan)', letterSpacing:'1px', textTransform:'uppercase'}}>OPENSTREETMAP DIGITAL GRID</div>
+            <div style={{fontSize:'0.72rem', fontWeight:800, color:'var(--accent-cyan)', letterSpacing:'1px', textTransform:'uppercase'}}>
+              {theme === 'light' ? 'ESRI TOPOGRAPHIC GIS GRID' : 'ESRI DARK GRAY GIS GRID'}
+            </div>
             <div style={{fontSize:'0.72rem', color:'var(--text-muted)', marginTop:2}}>
               [<span style={{color:'var(--accent-cyan)', fontWeight:800}}>Interactive Zoom & Lat/Lng Plotting</span>]
             </div>
           </div>
+
+          {safeProjectsCount === 0 && (
+            <div style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              zIndex: 1000,
+              background: isLightCard ? 'rgba(255, 255, 255, 0.92)' : 'rgba(15, 23, 42, 0.88)',
+              border: isLightCard ? '1px solid #cbd5e1' : '1px solid rgba(6, 182, 212, 0.35)',
+              borderRadius: 14,
+              padding: '14px 24px',
+              textAlign: 'center',
+              backdropFilter: 'blur(12px)',
+              pointerEvents: 'none',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.35)'
+            }}>
+              <div style={{fontSize:'1.3rem', marginBottom:4}}>🗺️</div>
+              <div style={{fontSize:'0.85rem', fontWeight:800, color: isLightCard ? '#0f172a' : '#ffffff'}}>
+                {lang === 'en' ? 'No projects plotted on the map' : 'ไม่มีข้อมูลโครงการบนแผนที่'}
+              </div>
+              <div style={{fontSize:'0.74rem', color: isLightCard ? '#64748b' : 'var(--text-muted)', marginTop:2}}>
+                {lang === 'en' ? 'Create a new project or restore demo data to see location markers.' : 'สร้างโครงการใหม่หรือโหลดข้อมูลตัวอย่างเพื่อแสดงหมุดที่ตั้ง'}
+              </div>
+            </div>
+          )}
 
           <div className="cyber-map-inner">
             <div ref={mapContainerRef} style={{width:'100%', height:'100%', background: (theme === 'light') ? '#e2e8f0' : '#090d14'}} />
@@ -4943,6 +5608,93 @@
                       </div>
                     )}
 
+                    {/* EVM Performance & Engineering Metrics Strip */}
+                    {(() => {
+                      const evm = calculateEVM(proj);
+                      return (
+                        <div style={{background: '#f8fafc', border: '1px solid #e2e8f0', borderRadius: 6, padding: '8px 12px', marginBottom: 12}}>
+                          <div style={{display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6}}>
+                            <span style={{fontSize: '0.75rem', fontWeight: 800, color: '#0f172a'}}>
+                              📈 EARNED VALUE MANAGEMENT (EVM PERFORMANCE METRICS)
+                            </span>
+                            <span style={{
+                              fontSize: '0.68rem', fontWeight: 800, padding: '2px 8px', borderRadius: 4,
+                              background: evm.health === 'critical' ? '#fee2e2' : evm.health === 'schedule-delay' ? '#fef3c7' : evm.health === 'budget-overrun' ? '#ffedd5' : '#dcfce7',
+                              color: evm.health === 'critical' ? '#b91c1c' : evm.health === 'schedule-delay' ? '#b45309' : evm.health === 'budget-overrun' ? '#c2410c' : '#15803d'
+                            }}>
+                              HEALTH: {evm.health.toUpperCase()}
+                            </span>
+                          </div>
+                          <div style={{display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 8, fontSize: '0.72rem', textAlign: 'center'}}>
+                            <div style={{background: '#ffffff', padding: '4px 6px', borderRadius: 4, border: '1px solid #e2e8f0'}}>
+                              <div style={{color: '#64748b', fontSize: '0.65rem', fontWeight: 700}}>SPI (SCHEDULE)</div>
+                              <div style={{fontWeight: 900, color: evm.spi < 0.95 ? '#e11d48' : '#047857', fontSize: '0.85rem'}}>{evm.spi}</div>
+                            </div>
+                            <div style={{background: '#ffffff', padding: '4px 6px', borderRadius: 4, border: '1px solid #e2e8f0'}}>
+                              <div style={{color: '#64748b', fontSize: '0.65rem', fontWeight: 700}}>CPI (COST)</div>
+                              <div style={{fontWeight: 900, color: evm.cpi < 0.95 ? '#e11d48' : '#047857', fontSize: '0.85rem'}}>{evm.cpi}</div>
+                            </div>
+                            <div style={{background: '#ffffff', padding: '4px 6px', borderRadius: 4, border: '1px solid #e2e8f0'}}>
+                              <div style={{color: '#64748b', fontSize: '0.65rem', fontWeight: 700}}>EARNED VALUE (EV)</div>
+                              <div style={{fontWeight: 800, color: '#00A3A6'}}>{formatCompactCurrency(evm.ev, '', lang)}</div>
+                            </div>
+                            <div style={{background: '#ffffff', padding: '4px 6px', borderRadius: 4, border: '1px solid #e2e8f0'}}>
+                              <div style={{color: '#64748b', fontSize: '0.65rem', fontWeight: 700}}>PLANNED VALUE (PV)</div>
+                              <div style={{fontWeight: 800, color: '#6366f1'}}>{formatCompactCurrency(evm.pv, '', lang)}</div>
+                            </div>
+                            <div style={{background: '#ffffff', padding: '4px 6px', borderRadius: 4, border: '1px solid #e2e8f0'}}>
+                              <div style={{color: '#64748b', fontSize: '0.65rem', fontWeight: 700}}>FORECAST (EAC)</div>
+                              <div style={{fontWeight: 800, color: '#d97706'}}>{formatCompactCurrency(evm.eac, '', lang)}</div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })()}
+
+                    {/* Payment Milestones Breakdown (if any) */}
+                    {proj.milestones && proj.milestones.length > 0 && (
+                      <div style={{border: '1px solid #e2e8f0', borderRadius: 6, padding: '8px 12px', background: '#ffffff', marginBottom: 12}}>
+                        <div style={{fontSize: '0.78rem', fontWeight: 800, color: '#0f172a', borderBottom: '1px solid #e2e8f0', paddingBottom: 4, marginBottom: 6, display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+                          <span>💳 PAYMENT MILESTONES & INVOICING (งวดงานและการเงิน)</span>
+                          <span style={{fontSize: '0.7rem', color: '#64748b'}}>
+                            Total {proj.milestones.length} Milestones
+                          </span>
+                        </div>
+                        <table style={{width: '100%', borderCollapse: 'collapse', fontSize: '0.72rem'}}>
+                          <thead>
+                            <tr style={{background: '#f1f5f9', textAlign: 'left'}}>
+                              <th style={{padding: '4px 6px'}}>#</th>
+                              <th style={{padding: '4px 6px'}}>Milestone Title</th>
+                              <th style={{padding: '4px 6px', width: 60}}>% Ratio</th>
+                              <th style={{padding: '4px 6px', textAlign: 'right'}}>Amount (THB)</th>
+                              <th style={{padding: '4px 6px', width: 85}}>Due Date</th>
+                              <th style={{padding: '4px 6px', width: 80, textAlign: 'center'}}>Status</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {proj.milestones.map((m, mIdx) => (
+                              <tr key={m.id || `m-${mIdx}`} style={{borderBottom: '1px solid #f1f5f9', background: mIdx % 2 === 0 ? '#ffffff' : '#fafafa'}}>
+                                <td style={{padding: '4px 6px'}}>{mIdx + 1}</td>
+                                <td style={{padding: '4px 6px', fontWeight: 600}}>{m.title}</td>
+                                <td style={{padding: '4px 6px'}}>{m.percent}%</td>
+                                <td style={{padding: '4px 6px', textAlign: 'right', fontWeight: 700, color: '#047857'}}>฿{(parseNumber(m.amount)).toLocaleString()}</td>
+                                <td style={{padding: '4px 6px'}}>{m.dueDate || '-'}</td>
+                                <td style={{padding: '4px 6px', textAlign: 'center'}}>
+                                  <span style={{
+                                    fontSize: '0.65rem', fontWeight: 800, padding: '2px 6px', borderRadius: 4,
+                                    background: m.status === 'paid' ? '#dcfce7' : m.status === 'invoiced' ? '#e0f2fe' : '#fef3c7',
+                                    color: m.status === 'paid' ? '#15803d' : m.status === 'invoiced' ? '#0369a1' : '#b45309'
+                                  }}>
+                                    {m.status ? m.status.toUpperCase() : 'PENDING'}
+                                  </span>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    )}
+
                     {/* WBS Tasks Breakdown (Clean & No Interactive Buttons) */}
                     <div style={{border: '1px solid #e2e8f0', borderRadius: 6, padding: '8px 12px', background: '#ffffff', marginBottom: 14}}>
                       <div style={{fontSize: '0.78rem', fontWeight: 800, color: '#0f172a', borderBottom: '1px solid #e2e8f0', paddingBottom: 4, marginBottom: 6}}>
@@ -5337,12 +6089,102 @@
               `  - สัดส่วนการใช้ต้นทุน (% Cost Usage): **${costUsagePct}%** ค่ะ`;
         }
 
-        // 4. Default General Response (Prompt to use Gemini API Key)
+        // 4. EVM (Earned Value Management) Deep Health Analysis
+        if (query.includes('evm') || query.includes('spi') || query.includes('cpi') || query.includes('sv') || query.includes('cv') || query.includes('eac') || query.includes('ดัชนี')) {
+          let evmReport = lang === 'en' 
+            ? `📈 **EVM (Earned Value Management) Health Check by Pudding AI:**\n\n` 
+            : `📈 **น้องพุดดิ้งวิเคราะห์ดัชนีชี้วัดประสิทธิภาพโครงการ (EVM Health Check) ให้พี่แล้วนะคะ:**\n\n`;
+
+          safeProjs.forEach(p => {
+            const evm = calculateEVM(p);
+            const statusIcon = evm.health === 'ahead' ? '🚀 Ahead of Schedule' : evm.health === 'on-track' ? '✅ On Track' : evm.health === 'schedule-delay' ? '⚠️ Behind Schedule' : evm.health === 'budget-overrun' ? '🟠 Over Budget' : evm.health === 'critical' ? '🔴 Critical' : 'COMPLETED';
+            evmReport += `• **[${p.code || 'PRJ'}] ${p.title}**\n` +
+              `  - **สถานะ EVM**: ${statusIcon}\n` +
+              `  - **SPI (เวลา)**: **${evm.spi}** (EV ฿${evm.ev.toLocaleString()} / PV ฿${evm.pv.toLocaleString()})\n` +
+              `  - **CPI (ต้นทุน)**: **${evm.cpi}** (EV ฿${evm.ev.toLocaleString()} / AC ฿${evm.ac.toLocaleString()})\n` +
+              `  - **SV**: ฿${evm.sv.toLocaleString()} | **CV**: ฿${evm.cv.toLocaleString()} | **EAC**: ฿${evm.eac.toLocaleString()} บาท\n\n`;
+          });
+
+          return evmReport;
+        }
+
+        // 5. Payment Milestones & Billing Analysis
+        if (query.includes('งวดงาน') || query.includes('milestone') || query.includes('วางบิล') || query.includes('invoice') || query.includes('เงินงวด') || query.includes('billing')) {
+          let totalContractBudget = 0;
+          let totalBilled = 0;
+          let totalPaid = 0;
+          let totalPending = 0;
+
+          safeProjs.forEach(p => {
+            const b = parseNumber(p.budget || p.costPlan || 0);
+            totalContractBudget += b;
+            (p.milestones || []).forEach(m => {
+              const amt = parseNumber(m.amount || 0);
+              if (m.status === 'paid') totalPaid += amt;
+              if (m.status === 'invoiced' || m.status === 'paid') totalBilled += amt;
+              if (m.status === 'pending' || m.status === 'overdue') totalPending += amt;
+            });
+          });
+
+          return lang === 'en'
+            ? `💳 **Contract Payment Milestones & Invoicing Summary:**\n\n` +
+              `• **Total Contract Budget**: ฿${totalContractBudget.toLocaleString()} THB\n` +
+              `• **Total Invoiced (Billed)**: ฿${totalBilled.toLocaleString()} THB (${totalContractBudget > 0 ? Math.round((totalBilled/totalContractBudget)*100) : 0}%)\n` +
+              `• **Total Collected (Paid)**: ฿${totalPaid.toLocaleString()} THB (${totalContractBudget > 0 ? Math.round((totalPaid/totalContractBudget)*100) : 0}%)\n` +
+              `• **Pending / Unbilled**: ฿${totalPending.toLocaleString()} THB`
+            : `💳 **น้องพุดดิ้งสรุปสถานะงวดงานและการเงิน (Milestones & Invoicing) ให้พี่แล้วนะคะ:**\n\n` +
+              `• **มูลค่าสัญญารวมทั้งหมด**: **฿${totalContractBudget.toLocaleString()} บาท**\n` +
+              `• **วางบิลแล้ว (Invoiced)**: **฿${totalBilled.toLocaleString()} บาท** (${totalContractBudget > 0 ? Math.round((totalBilled/totalContractBudget)*100) : 0}% ของสัญญารวม)\n` +
+              `• **รับชำระเงินแล้ว (Paid)**: **฿${totalPaid.toLocaleString()} บาท** (${totalContractBudget > 0 ? Math.round((totalPaid/totalContractBudget)*100) : 0}% รับเงินเข้าบริษัทแล้ว)\n` +
+              `• **คงเหลือรอดำเนินการวางบิล**: **฿${totalPending.toLocaleString()} บาท**\n\n` +
+              `💡 พี่สามารถกดดูแท็บ *"💳 งวดงาน & การเงิน"* ในหน้ารายละเอียดของแต่ละโครงการเพื่อตรวจสอบกำหนดส่งมอบและใบแจ้งหนี้ได้เลยค่ะ 🍮✨`;
+        }
+
+        // 6. Risk & Alert Summary
+        if (query.includes('เสี่ยง') || query.includes('เตือน') || query.includes('risk') || query.includes('alert') || query.includes('ล่าช้า') || query.includes('delay')) {
+          const riskEval = evaluateProjectRisks(safeProjs);
+          if (riskEval.totalCount === 0) {
+            return lang === 'en'
+              ? '🎉 **Great news!** No active risk alerts detected. All projects are on schedule and within budget.'
+              : '🎉 **ยินดีด้วยค่ะพี่!** ไม่พบสัญญาณเตือนความเสี่ยงในระบบเลย โครงการทุกตัวดำเนินงานตามแผนและอยู่ในงบประมาณเป็นอย่างดีค่ะ 🍮✨';
+          }
+
+          let alertReport = lang === 'en'
+            ? `🚨 **Intelligent Risk & Alert Matrix (${riskEval.totalCount} active items):**\n\n`
+            : `🚨 **น้องพุดดิ้งสรุปรายการความเสี่ยงและการแจ้งเตือน (${riskEval.totalCount} รายการ) ให้พี่ติดตามค่ะ:**\n\n`;
+
+          if (riskEval.scheduleRisks.length > 0) {
+            alertReport += `🔴 **ความเสี่ยงด้านกำหนดเวลา / ล่าช้า (${riskEval.scheduleRisks.length} รายการ):**\n`;
+            riskEval.scheduleRisks.forEach(r => {
+              alertReport += `  - **[${r.project.code || 'PRJ'}] ${r.project.title}**: ${r.detail}\n`;
+            });
+            alertReport += '\n';
+          }
+
+          if (riskEval.budgetRisks.length > 0) {
+            alertReport += `🟠 **ความเสี่ยงด้านงบประมาณเกิน (${riskEval.budgetRisks.length} รายการ):**\n`;
+            riskEval.budgetRisks.forEach(r => {
+              alertReport += `  - **[${r.project.code || 'PRJ'}] ${r.project.title}**: ${r.detail}\n`;
+            });
+            alertReport += '\n';
+          }
+
+          if (riskEval.warrantyRisks.length > 0) {
+            alertReport += `🟡 **การแจ้งเตือนประกันใกล้หมดอายุ (${riskEval.warrantyRisks.length} รายการ):**\n`;
+            riskEval.warrantyRisks.forEach(r => {
+              alertReport += `  - **[${r.project.code || 'PRJ'}] ${r.project.title}**: ${r.detail}\n`;
+            });
+          }
+
+          return alertReport;
+        }
+
+        // 7. Default General Response (Prompt to use Gemini API Key)
         return lang === 'en'
           ? '💡 **Pudding AI Universal Assistant:**\n\n' +
             'I am ready to help you with anything! To unlock live conversational reasoning on coding, general knowledge, math, science, and creative writing, please enter your Google Gemini API Key in 🔑 Settings above.'
           : '💡 **คำแนะนำจากน้องพุดดิ้งนะคะ:**\n\n' +
-            'น้องพุดดิ้งพร้อมพูดคุยและช่วยพี่ได้ทุกเรื่องเลยค่ะ! ทั้งเรื่องเขียนโปรแกรม, คำนวณ, วิทยาศาสตร์, ภาษา, หรือความรู้รอบตัว (เพียงใส่ Gemini API Key ที่ปุ่ม 🔑 ด้านบน เพื่อเปิดพลังสนทนาสดๆ ของ Gemini 3.7 Flash ได้ทันทีเลยนะคะ 🍮✨)';
+            'น้องพุดดิ้งพร้อมพูดคุยและช่วยพี่ได้ทุกเรื่องเลยค่ะ! ทั้งเรื่อง EVM, งวดงาน, แจ้งเตือนความเสี่ยง, เขียนโปรแกรม, คำนวณ, วิทยาศาสตร์ หรือภาษา (เพียงใส่ Gemini API Key ที่ปุ่ม 🔑 ด้านบน เพื่อเปิดพลังสนทนาสดๆ ของ Gemini 3.7 Flash ได้ทันทีเลยนะคะ 🍮✨)';
       };
 
       const handleSendMessage = async (textToSend) => {
@@ -5388,6 +6230,7 @@
             } else {
               actualAmt = parseNumber(p.actualCost || p.costSpent || 0);
             }
+            const evm = calculateEVM(p);
             return {
               code: p.code || 'N/A',
               title: p.title,
@@ -5400,6 +6243,19 @@
               budget: p.budget || '0',
               costPlan: p.costPlan || '0',
               actualCost: actualAmt,
+              evmMetrics: {
+                bac: evm.bac,
+                pv: evm.pv,
+                ev: evm.ev,
+                ac: evm.ac,
+                spi: evm.spi,
+                cpi: evm.cpi,
+                sv: evm.sv,
+                cv: evm.cv,
+                eac: evm.eac,
+                health: evm.health
+              },
+              milestones: (p.milestones || []).map(m => ({ title: m.title, amount: m.amount, percent: m.percent, dueDate: m.dueDate, status: m.status })),
               location: p.location || p.province || '-',
               startDate: p.startDate || '-',
               targetDate: p.targetDate || '-',
@@ -5407,6 +6263,8 @@
               hasWarranty: p.hasWarranty
             };
           });
+
+          const riskData = evaluateProjectRisks(safeProjs);
 
           // Dynamic Real-time Date & Time context injection
           const nowObj = new Date();
@@ -5429,14 +6287,22 @@
 - แทนตัวเองว่า "น้องพุดดิ้ง" หรือ "พุดดิ้ง" เสมอ และเรียกผู้ใช้ว่า "พี่" หรือ "คุณ" อย่างสุภาพ น่ารัก อบอุ่น ฉลาด และเป็นกันเอง (ลงท้ายด้วย ค่ะ/นะคะ)
 - มีความรอบรู้รอบด้าน สามารถพูดคุย ให้คำปรึกษา วิเคราะห์ คิดคำนวณ เขียนโค้ด และช่วยเหลือได้ทุกเรื่องในจักรวาล เช่นเดียวกับ Gemini และ ChatGPT:
   1. [เขียนโค้ดและเทคโนโลยี]: Python, JavaScript, React, C#, SQL, HTML/CSS, Machine Learning, Web App, Data Analysis, DevOps
-  2. [วิทยาศาสตร์ คณิตศาสตร์ การเงิน และธุรกิจ]: ทฤษฎีวิทย์, คำนวณสมการ, วิเคราะห์งบการเงิน, วางแผนกลยุทธ์, การตลาด
+  2. [วิทยาศาสตร์ คณิตศาสตร์ การเงิน และธุรกิจ]: ทฤษฎีวิทย์, คำนวณสมการ, วิเคราะห์งบการเงิน, วางแผนกลยุทธ์, การตลาด, Earned Value Management (EVM), Cash Flow
   3. [การเขียนและงานสร้างสรรค์]: ร่างอีเมล, เขียนบทความ, สรุปเอกสาร, แปลภาษา, แต่งกลอน, คิดไอเดียสร้างสรรค์
   4. [วิศวกรรมทุกสาขา]: วิศวกรรมไฟฟ้าแรงสูง (High-Voltage Substations, Transmission Lines 115kV/230kV), โยธา, เครื่องกล, พลังงานหมุนเวียน
   5. [การพูดคุยทั่วไป]: ปรึกษาปัญหาชีวิต, เป็นเพื่อนคู่คิด, ให้กำลังใจ และคุยเล่นได้อย่างสนุกสนาน
 
-- [ความเชี่ยวชาญพิเศษด้านระบบ Project Hub]:
-  เมื่อผู้ใช้ถามเรื่องระบบ Project Hub หรือข้อมูลโครงการ คุณสามารถดึงข้อมูลสดเหล่านี้มาตอบและวิเคราะห์ได้ทันที:
+- [ความเชี่ยวชาญพิเศษด้านระบบ Project Hub, EVM, Milestones & Alerts]:
+  เมื่อผู้ใช้ถามเรื่องระบบ Project Hub, ดัชนี EVM (SPI/CPI), กำหนดงวดงาน (Milestones) หรือความเสี่ยงโครงการ คุณสามารถดึงข้อมูลสดเหล่านี้มาตอบและวิเคราะห์เชิงลึกได้ทันที:
+  
+  [สรุปข้อมูลโครงการและเมตริกซ์ EVM/Milestones สดในระบบ]:
   ${JSON.stringify(projectSummary, null, 2)}
+
+  [สรุปการแจ้งเตือนความเสี่ยง (Risk & Alert Matrix)]:
+  - จำนวนความเสี่ยงทั้งหมด: ${riskData.totalCount} รายการ
+  - ล่าช้า (Schedule): ${riskData.scheduleRisks.length} รายการ
+  - งบเกิน (Budget): ${riskData.budgetRisks.length} รายการ
+  - ประกันใกล้หมด (Warranty): ${riskData.warrantyRisks.length} รายการ
 
 กฎการตอบ:
 - ตอบอย่างมีโครงสร้าง ชัดเจน ใช้ Markdown (ตัวหนา, หัวข้อ, บูลเล็ต, บล็อกโค้ด) ให้อ่านง่าย สบายตา
@@ -5650,24 +6516,24 @@
 
       const quickPrompts = [
         { 
-          label: lang === 'en' ? '🍮 Ask for Guide' : '🍮 สอนวิธีใช้งานระบบ', 
-          query: lang === 'en' ? 'How do I use this Project Hub system?' : 'ช่วยสอนวิธีใช้งานระบบ Project Hub และเมนูสำคัญต่างๆ ให้น้องพุดดิ้งหน่อยนะคะ' 
+          label: lang === 'en' ? '📈 EVM Health Check' : '📈 วิเคราะห์ EVM (SPI/CPI)', 
+          query: lang === 'en' ? 'Perform an Earned Value Management (EVM) analysis including SPI, CPI, SV, CV, and EAC for all projects.' : 'ช่วยวิเคราะห์ดัชนี EVM (SPI, CPI, SV, CV, EAC) ของทุกโครงการในระบบให้น้องพุดดิ้งฟังหน่อยนะคะ' 
         },
         { 
-          label: lang === 'en' ? '📊 Project Summary' : '📊 สรุปโครงการทั้งหมด', 
+          label: lang === 'en' ? '🚨 Risk & Alert Matrix' : '🚨 แจ้งเตือนความเสี่ยง', 
+          query: lang === 'en' ? 'Summarize all schedule delays, budget overruns, and expiring warranties.' : 'ช่วยสรุปรายงานแจ้งเตือนความเสี่ยง โครงการที่ล่าช้า งบเกิน หรือประกันใกล้หมดให้หน่อยค่ะ' 
+        },
+        { 
+          label: lang === 'en' ? '💳 Milestones & Cash Flow' : '💳 สถานะงวดงาน & วางบิล', 
+          query: lang === 'en' ? 'Give me a summary of payment milestones, billed amounts, and collected revenue.' : 'ช่วยสรุปสถานะงวดงานตามสัญญา ยอดวางบิล และยอดเงินที่รับชำระแล้วของทุกโครงการให้หน่อยนะคะ' 
+        },
+        { 
+          label: lang === 'en' ? '📊 Project Summary' : '📊 สรุปภาพรวมโครงการ', 
           query: lang === 'en' ? 'Give me an executive summary of all projects.' : 'ช่วยสรุปภาพรวมสถานะและความก้าวหน้าของโครงการทั้งหมดในระบบตอนนี้นะคะ' 
         },
         { 
           label: lang === 'en' ? '⚡ WBS 100% Tips' : '⚡ น้ำหนัก WBS 100%', 
           query: lang === 'en' ? 'How to set up WBS tasks and 100% weight balance?' : 'ช่วยอธิบายวิธีกำหนด % น้ำหนักงานใน WBS ให้ได้ 100% พอดีหน่อยค่ะ' 
-        },
-        { 
-          label: lang === 'en' ? '⚠️ Check Risks & Delay' : '⚠️ โครงการเสี่ยงล่าช้า', 
-          query: lang === 'en' ? 'Which projects are overdue or at risk of delay?' : 'มีโครงการไหนที่เสี่ยงล่าช้า หรือต้องติดตามเป็นพิเศษบ้างคะ' 
-        },
-        { 
-          label: lang === 'en' ? '📝 Executive Briefing' : '📝 ร่างสรุปผู้บริหาร', 
-          query: lang === 'en' ? 'Draft an executive briefing for management.' : 'ช่วยร่างบทสรุปภาพรวมผลการดำเนินงานโครงการ สำหรับนำเสนอผู้บริหารแบบกระชับให้หน่อยนะคะ' 
         }
       ];
 
@@ -6801,25 +7667,18 @@
       const [theme, setTheme] = useState(() => localStorage.getItem(THEME_KEY) || 'dark');
       const [activeTab, setActiveTab] = useState('dashboard');
       const [lang, setLang] = useState(() => localStorage.getItem(LANG_KEY) || 'th');
-            const [projects, setProjects] = useState(() => {
+      const [projects, setProjects] = useState(() => {
         try {
           const saved = localStorage.getItem(STORAGE_KEY);
-          if (saved) {
+          if (saved !== null) {
             const parsed = JSON.parse(saved);
             if (Array.isArray(parsed)) {
-              const cleaned = parsed.filter(p => p != null && typeof p === 'object');
-              if (cleaned.length >= 9) return cleaned;
-              // Merge missing default projects seamlessly
-              const existingCodes = new Set(cleaned.map(p => p.code));
-              const merged = [...cleaned];
-              defaultProjects.forEach(dp => {
-                if (!existingCodes.has(dp.code)) {
-                  merged.push(dp);
-                }
-              });
-              return merged;
+              return parsed.filter(p => p != null && typeof p === 'object');
             }
           }
+        } catch(e) {}
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(defaultProjects));
         } catch(e) {}
         return defaultProjects;
       });
@@ -6854,6 +7713,8 @@
       const [currentUser, setCurrentUser] = useState(null);
       const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
       const [isCloudOnline, setIsCloudOnline] = useState(true);
+      const [isAlertCenterOpen, setIsAlertCenterOpen] = useState(false);
+      const [alertFilterTab, setAlertFilterTab] = useState('all');
       const [customRoles, setCustomRoles] = useState(() => {
         try {
           const saved = localStorage.getItem('project_hub_custom_roles');
@@ -6898,8 +7759,9 @@
       // 2. Real-Time Cloud Firestore Sync Listener (Instant Multi-Device Synchronization)
       useEffect(() => {
         const unsubscribe = CloudSyncService.subscribeProjects((cloudProjects) => {
-          if (cloudProjects && cloudProjects.length > 0) {
+          if (Array.isArray(cloudProjects)) {
             setProjects(cloudProjects);
+            ProjectStorage.set(STORAGE_KEY, cloudProjects);
             setIsCloudOnline(true);
           }
         });
@@ -6934,27 +7796,32 @@
       };
 
       const handleSaveProject = (projData) => {
+        let updatedList;
         if (editingProject) {
-          setProjects(prev => prev.map(p => p.id === projData.id ? projData : p));
+          updatedList = projects.map(p => p.id === projData.id ? projData : p);
           if (selectedProject?.id === projData.id) setSelectedProject(projData);
           showToast(t('toastUpdateSuccess'));
         } else {
-          setProjects(prev => [projData, ...prev]);
+          updatedList = [projData, ...projects];
           showToast(t('toastCreateSuccess'));
         }
+        setProjects(updatedList);
+        ProjectStorage.set(STORAGE_KEY, updatedList);
         CloudSyncService.saveProject(projData, currentUser ? currentUser.email : 'Team Member');
         setIsFormOpen(false);
         setEditingProject(null);
       };
 
-            const handleDeleteProject = (id) => {
+      const handleDeleteProject = (id) => {
         const targetProj = projects.find(p => p.id === id);
         const projName = targetProj ? `[${targetProj.code || 'PRJ'}] ${targetProj.title}` : '';
         setPinModalConfig({
           title: lang === 'en' ? `Delete project: ${projName}` : `ลบโครงการ: ${projName}`,
           warningText: lang === 'en' ? 'This action is permanent and will remove all project tasks, expenses, and photos.' : 'การลบนี้จะไม่สามารถกู้คืนได้ และจะลบงาน WBS, บันทึกต้นทุน และรูปภาพทั้งหมดในโครงการค่ะ',
           onConfirm: () => {
-            setProjects(prev => prev.filter(p => p.id !== id));
+            const updated = projects.filter(p => p.id !== id);
+            setProjects(updated);
+            ProjectStorage.set(STORAGE_KEY, updated);
             if (selectedProject?.id === id) setSelectedProject(null);
             showToast(t('toastDeleteSuccess'));
             CloudSyncService.deleteProject(id);
@@ -6973,7 +7840,7 @@
       const handleExportExcel = () => {
         let csvContent = "\uFEFF"; // UTF-8 BOM for Excel Thai language support
         
-        // Comprehensive 24 headers containing all project data
+        // Comprehensive 30 headers containing all project data including EVM & Milestones
         const headers = [
           "Item no.",
           "Project Code",
@@ -6987,6 +7854,13 @@
           "Cost Plan (THB)",
           "Actual Cost (THB)",
           "Remaining Budget (THB)",
+          "EVM SPI (Schedule Index)",
+          "EVM CPI (Cost Index)",
+          "EVM EAC (Forecast Cost THB)",
+          "EVM Health",
+          "Milestones Billed (THB)",
+          "Milestones Paid (THB)",
+          "Milestones Status",
           "Seller",
           "Owner/PM",
           "Contractor",
@@ -7028,6 +7902,21 @@
           const remNum = planNum - actualAmt;
           const remainingBudgetStr = `"${remNum.toLocaleString('en-US')} บาท"`;
 
+          // EVM Metrics
+          const evm = calculateEVM(p);
+          const evmSpi = `"${evm.spi}"`;
+          const evmCpi = `"${evm.cpi}"`;
+          const evmEac = `"${evm.eac.toLocaleString('en-US')} บาท"`;
+          const evmHealth = `"${evm.health}"`;
+
+          // Milestones Summary
+          const mList = p.milestones || [];
+          const mBilled = mList.filter(m => m.status === 'invoiced' || m.status === 'paid').reduce((s, m) => s + parseNumber(m.amount || 0), 0);
+          const mPaid = mList.filter(m => m.status === 'paid').reduce((s, m) => s + parseNumber(m.amount || 0), 0);
+          const mBilledStr = `"${mBilled.toLocaleString('en-US')} บาท"`;
+          const mPaidStr = `"${mPaid.toLocaleString('en-US')} บาท"`;
+          const mSummaryStr = `"${mList.filter(m=>m.status==='paid').length}/${mList.length} Milestones Paid"`;
+
           const seller = `"${(p.seller || '').replace(/"/g, '""')}"`;
           const owner = `"${(p.owner || '').replace(/"/g, '""')}"`;
           const contractor = `"${(p.contractor || '').replace(/"/g, '""')}"`;
@@ -7046,7 +7935,7 @@
           const logsCount = `"${(p.logs || []).length} Logs"`;
           const mapUrl = `"${(p.googleMap || '').replace(/"/g, '""')}"`;
           
-          csvContent += `${itemNo},${code},${status},${progress},${client},${location},${title},${description},${budget},${costPlan},${actualCostStr},${remainingBudgetStr},${seller},${owner},${contractor},${startDate},${targetDate},${warrantyPeriod},${warrantyStatus},${warrantyStartDate},${tasksSummary},${expensesCount},${logsCount},${mapUrl}\n`;
+          csvContent += `${itemNo},${code},${status},${progress},${client},${location},${title},${description},${budget},${costPlan},${actualCostStr},${remainingBudgetStr},${evmSpi},${evmCpi},${evmEac},${evmHealth},${mBilledStr},${mPaidStr},${mSummaryStr},${seller},${owner},${contractor},${startDate},${targetDate},${warrantyPeriod},${warrantyStatus},${warrantyStartDate},${tasksSummary},${expensesCount},${logsCount},${mapUrl}\n`;
         });
         
         const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
@@ -7111,6 +8000,9 @@
 
       const noWarrantyProjects = Math.max(0, totalProjects - inWarrantyProjects);
 
+      // Intelligent Risk Evaluation Engine
+      const riskEvaluation = evaluateProjectRisks(safeProjectsList);
+
       return (
         <div className="app-container">
           {isLoading && <ElectricalLoaderModal lang={lang} />}
@@ -7130,7 +8022,7 @@
                 <div className="brand-title" style={{display:'flex', alignItems:'center', gap:8}}>
                   {t('appTitle')}
                   <span style={{fontSize:'0.72rem', background:'rgba(99, 102, 241, 0.18)', color:'var(--accent-cyan)', padding:'2px 8px', borderRadius:10, border:'1px solid var(--primary-hover)', fontWeight:600}}>
-                    v6.3 • 2026-08-17 13:40 REALTIME CLOCK AI MASTER
+                    v6.8 • 202608282132 COMPLETE THAILAND ADDRESS & SMART PARSER
                   </span>
                 </div>
                 <div className="brand-subtitle">{t('appSubtitle')}</div>
@@ -7138,6 +8030,167 @@
             </div>
 
             <div className="nav-actions">
+
+              {/* INTELLIGENT RISK & ALERT NOTIFICATION CENTER BUTTON */}
+              <div className="nav-btn-wrap" style={{position:'relative', zIndex: isAlertCenterOpen ? 99995 : 'auto'}}>
+                {isAlertCenterOpen && (
+                  <div 
+                    style={{position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 99990, cursor: 'default'}} 
+                    onClick={() => setIsAlertCenterOpen(false)} 
+                  />
+                )}
+                <button 
+                  type="button" 
+                  className={`btn-icon ${riskEvaluation.totalCount > 0 ? 'bell-ring-anim' : ''}`}
+                  style={{
+                    position:'relative',
+                    background: riskEvaluation.totalCount > 0 ? 'rgba(239, 68, 68, 0.18)' : 'var(--bg-input)',
+                    borderColor: riskEvaluation.totalCount > 0 ? '#ef4444' : 'var(--border-color)',
+                    color: riskEvaluation.totalCount > 0 ? '#f87171' : 'var(--text-sub)'
+                  }}
+                  onClick={() => setIsAlertCenterOpen(prev => !prev)}
+                  aria-label="Risk & Alert Center"
+                >
+                  <Icon name="bell" size={18} color={riskEvaluation.totalCount > 0 ? '#f87171' : 'currentColor'} />
+                  {riskEvaluation.totalCount > 0 && (
+                    <span className="alert-badge-counter">
+                      {riskEvaluation.totalCount}
+                    </span>
+                  )}
+                </button>
+                <span className="nav-tooltip">
+                  {lang === 'en' ? `🔔 Alerts & Risks (${riskEvaluation.totalCount})` : `🔔 แจ้งเตือนความเสี่ยง (${riskEvaluation.totalCount})`}
+                </span>
+
+                {/* FLOATING ALERT CENTER DROPDOWN PANEL */}
+                {isAlertCenterOpen && (
+                  <div className="alert-center-dropdown" style={{zIndex: 99999}} onClick={e => e.stopPropagation()}>
+                    <div style={{padding:'14px 18px', background:'rgba(30, 41, 59, 0.95)', borderBottom:'1px solid rgba(239, 68, 68, 0.3)', display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+                      <div style={{display:'flex', alignItems:'center', gap:8}}>
+                        <div style={{width:32, height:32, borderRadius:10, background:'rgba(239, 68, 68, 0.2)', display:'flex', alignItems:'center', justifyContent:'center'}}>
+                          <Icon name="bell" size={17} color="#ef4444" />
+                        </div>
+                        <div>
+                          <div style={{fontWeight:800, fontSize:'0.92rem', color:'#ffffff'}}>
+                            {t('alertCenterTitle')}
+                          </div>
+                          <div style={{fontSize:'0.72rem', color:'#94a3b8'}}>
+                            {lang === 'en' ? `${riskEvaluation.totalCount} active items requiring attention` : `พบความเสี่ยงที่ต้องติดตาม ${riskEvaluation.totalCount} รายการ`}
+                          </div>
+                        </div>
+                      </div>
+                      <button type="button" className="btn-icon" style={{width:28, height:28, borderRadius:6}} onClick={() => setIsAlertCenterOpen(false)}>
+                        <Icon name="x" size={14} />
+                      </button>
+                    </div>
+
+                    {/* Filter Chips inside Dropdown */}
+                    <div style={{display:'flex', gap:6, padding:'8px 14px', background:'rgba(15, 23, 42, 0.9)', borderBottom:'1px solid var(--border-color)', overflowX:'auto'}}>
+                      <button 
+                        type="button" 
+                        style={{
+                          padding:'4px 10px', borderRadius:14, fontSize:'0.72rem', fontWeight:700, border:'none', cursor:'pointer',
+                          background: alertFilterTab === 'all' ? 'var(--primary)' : 'rgba(255,255,255,0.06)',
+                          color: alertFilterTab === 'all' ? '#ffffff' : 'var(--text-muted)'
+                        }}
+                        onClick={() => setAlertFilterTab('all')}
+                      >
+                        {t('alertTabAll')} ({riskEvaluation.totalCount})
+                      </button>
+                      <button 
+                        type="button" 
+                        style={{
+                          padding:'4px 10px', borderRadius:14, fontSize:'0.72rem', fontWeight:700, border:'none', cursor:'pointer',
+                          background: alertFilterTab === 'schedule' ? '#ef4444' : 'rgba(255,255,255,0.06)',
+                          color: alertFilterTab === 'schedule' ? '#ffffff' : '#f87171'
+                        }}
+                        onClick={() => setAlertFilterTab('schedule')}
+                      >
+                        🔴 {lang === 'en' ? 'Delay' : 'ล่าช้า'} ({riskEvaluation.scheduleRisks.length})
+                      </button>
+                      <button 
+                        type="button" 
+                        style={{
+                          padding:'4px 10px', borderRadius:14, fontSize:'0.72rem', fontWeight:700, border:'none', cursor:'pointer',
+                          background: alertFilterTab === 'budget' ? '#f59e0b' : 'rgba(255,255,255,0.06)',
+                          color: alertFilterTab === 'budget' ? '#ffffff' : '#fbbf24'
+                        }}
+                        onClick={() => setAlertFilterTab('budget')}
+                      >
+                        🟠 {lang === 'en' ? 'Budget' : 'งบเกิน'} ({riskEvaluation.budgetRisks.length})
+                      </button>
+                      <button 
+                        type="button" 
+                        style={{
+                          padding:'4px 10px', borderRadius:14, fontSize:'0.72rem', fontWeight:700, border:'none', cursor:'pointer',
+                          background: alertFilterTab === 'warranty' ? '#06b6d4' : 'rgba(255,255,255,0.06)',
+                          color: alertFilterTab === 'warranty' ? '#ffffff' : '#67e8f9'
+                        }}
+                        onClick={() => setAlertFilterTab('warranty')}
+                      >
+                        🟡 {lang === 'en' ? 'Warranty' : 'ประกัน'} ({riskEvaluation.warrantyRisks.length})
+                      </button>
+                    </div>
+
+                    {/* Alerts List */}
+                    <div style={{flex:1, overflowY:'auto', padding:'12px 14px', display:'flex', flexDirection:'column', gap:8, maxHeight:380}}>
+                      {(() => {
+                        let displayedList = [];
+                        if (alertFilterTab === 'all') displayedList = riskEvaluation.allRisks;
+                        else if (alertFilterTab === 'schedule') displayedList = riskEvaluation.scheduleRisks;
+                        else if (alertFilterTab === 'budget') displayedList = riskEvaluation.budgetRisks;
+                        else if (alertFilterTab === 'warranty') displayedList = riskEvaluation.warrantyRisks;
+
+                        if (displayedList.length === 0) {
+                          return (
+                            <div style={{textAlign:'center', padding:'30px 10px', color:'var(--text-muted)', fontSize:'0.85rem'}}>
+                              <div style={{fontSize:'1.8rem', marginBottom:6}}>🎉</div>
+                              <div style={{fontWeight:700, color:'var(--accent-emerald)'}}>{t('noAlertsMsg')}</div>
+                            </div>
+                          );
+                        }
+
+                        return displayedList.map((alert, idx) => (
+                          <div 
+                            key={idx} 
+                            className={`alert-item-card alert-item-${alert.level === 'critical' ? 'critical' : alert.type === 'budget' ? 'warning' : 'info'}`}
+                            onClick={() => {
+                              setSelectedProject(alert.project);
+                              setIsAlertCenterOpen(false);
+                            }}
+                          >
+                            <div style={{display:'flex', justifyContent:'space-between', alignItems:'flex-start', gap:8}}>
+                              <div style={{display:'flex', alignItems:'center', gap:6}}>
+                                <span style={{fontSize:'0.7rem', fontWeight:800, padding:'2px 6px', borderRadius:5, background:'rgba(255,255,255,0.08)', color:'var(--accent-cyan)'}}>
+                                  {alert.project.code || 'PRJ'}
+                                </span>
+                                <span style={{fontWeight:800, fontSize:'0.82rem', color:'#ffffff'}}>
+                                  {(alert.project.title || '').slice(0, 32)}...
+                                </span>
+                              </div>
+                              <span style={{
+                                fontSize:'0.65rem', fontWeight:800, padding:'2px 8px', borderRadius:10, textTransform:'uppercase',
+                                background: alert.level === 'critical' ? 'rgba(239, 68, 68, 0.2)' : 'rgba(245, 158, 11, 0.2)',
+                                color: alert.level === 'critical' ? '#f87171' : '#fbbf24',
+                                border: alert.level === 'critical' ? '1px solid #ef4444' : '1px solid #f59e0b'
+                              }}>
+                                {alert.level}
+                              </span>
+                            </div>
+
+                            <div style={{fontSize:'0.8rem', fontWeight:700, color: alert.level === 'critical' ? '#fca5a5' : '#fde047', marginTop:2}}>
+                              {lang === 'en' ? alert.titleEn : alert.title}
+                            </div>
+                            <div style={{fontSize:'0.74rem', color:'var(--text-muted)', lineHeight:1.3}}>
+                              {lang === 'en' ? alert.detailEn : alert.detail}
+                            </div>
+                          </div>
+                        ));
+                      })()}
+                    </div>
+                  </div>
+                )}
+              </div>
 
               {/* COMPACT FUTURISTIC NEON CLOUD STATUS BUTTON (ICON ONLY) */}
               <div className="nav-btn-wrap">
@@ -7260,11 +8313,6 @@
               {/* CREATE PROJECT */}
               <div className="nav-btn-wrap">
                 <button type="button" className="btn-icon" style={{background:'var(--primary)', borderColor:'var(--primary)', color:'#ffffff', boxShadow:'0 4px 14px rgba(99,102,241,0.35)'}} onClick={() => { 
-                  if (!currentUser) {
-                    showToast(lang === 'en' ? '🔒 Please sign in to create new projects.' : '🔒 กรุณาเข้าสู่ระบบก่อนสร้างโครงการใหม่ค่ะ');
-                    setIsAuthModalOpen(true);
-                    return;
-                  }
                   setEditingProject(null); 
                   setIsFormOpen(true); 
                 }}>
@@ -7566,7 +8614,16 @@
                   <div className="project-card" onClick={() => setSelectedProject(proj)}>
                   <div>
                     <div className="card-header">
-                      <span className="card-code">{proj.code || 'PRJ-N/A'}</span>
+                      <div style={{display:'flex', alignItems:'center', gap:6, flexWrap:'wrap'}}>
+                        <span className="card-code">{proj.code || 'PRJ-N/A'}</span>
+                        {(() => {
+                          const evm = calculateEVM(proj);
+                          if (evm.health === 'critical') return <span className="risk-tag risk-tag-critical" title="SPI & CPI Critical">🔴 {lang === 'en' ? 'Critical' : 'วิกฤต'}</span>;
+                          if (evm.health === 'schedule-delay') return <span className="risk-tag risk-tag-delay" title={`SPI: ${evm.spi} (Delayed)`}>⚠️ {lang === 'en' ? 'Delayed' : 'ล่าช้า'}</span>;
+                          if (evm.health === 'budget-overrun') return <span className="risk-tag risk-tag-budget" title={`CPI: ${evm.cpi} (Over Budget)`}>🟠 {lang === 'en' ? 'Over Budget' : 'งบเกิน'}</span>;
+                          return null;
+                        })()}
+                      </div>
                       <StatusBadge status={proj.status} lang={lang} />
                     </div>
                     <div className="card-title">{proj.title}</div>
@@ -7725,8 +8782,17 @@
                             <div><StatusBadge status={proj.status} lang={lang} /></div>
                           </div>
                         </td>
-                        <td style={{fontWeight: 700, fontSize: '0.98rem', color: expandedGanttProjectId === proj.id ? 'var(--accent-cyan)' : 'var(--text-main)'}}>
-                          {proj.title}
+                        <td>
+                          <div style={{fontWeight: 700, fontSize: '0.98rem', color: expandedGanttProjectId === proj.id ? 'var(--accent-cyan)' : 'var(--text-main)', display:'flex', alignItems:'center', gap:8, flexWrap:'wrap'}}>
+                            <span>{proj.title}</span>
+                            {(() => {
+                              const evm = calculateEVM(proj);
+                              if (evm.health === 'critical') return <span className="risk-tag risk-tag-critical" title="Critical: Behind schedule & Over budget">🔴 Critical (SPI {evm.spi}, CPI {evm.cpi})</span>;
+                              if (evm.health === 'schedule-delay') return <span className="risk-tag risk-tag-delay" title={`SPI: ${evm.spi}`}>⚠️ {lang === 'en' ? 'Delayed' : 'ล่าช้า'} (SPI {evm.spi})</span>;
+                              if (evm.health === 'budget-overrun') return <span className="risk-tag risk-tag-budget" title={`CPI: ${evm.cpi}`}>🟠 {lang === 'en' ? 'Over Budget' : 'งบเกิน'} (CPI {evm.cpi})</span>;
+                              return null;
+                            })()}
+                          </div>
                         </td>
                         <td style={{fontWeight: 500}}>{proj.owner || '-'}</td>
                         <td>
@@ -7991,715 +9057,80 @@
     }
 
     // PROJECT FORM MODAL (DATA INTEGRATION FULL FORM WITH DRAFT & ACCIDENTAL CLOSE PROTECTION)
-    // THAI ADDRESS DATABASE (ALL 77 PROVINCES WITH REAL DISTRICTS, SUBDISTRICTS & ZIPCODES)
-const THAI_ADDRESS_DATA = [
-  { name: 'กรุงเทพมหานคร', nameEn: 'Bangkok', amphoes: [
-    { name: 'พระนคร', nameEn: 'Phra Nakhon', tambons: [
-      { name: 'พระบรมมหาราชวัง', nameEn: 'Phra Borom Maha Ratchawang', zip: '10200' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ดุสิต', nameEn: 'Dusit', tambons: [
-      { name: 'ดุสิต', nameEn: 'Dusit', zip: '10300' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ปทุมวัน', nameEn: 'Pathum Wan', tambons: [
-      { name: 'ปทุมวัน', nameEn: 'Pathum Wan', zip: '10330' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'บางรัก', nameEn: 'Bang Rak', tambons: [
-      { name: 'สีลม', nameEn: 'Silom', zip: '10500' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'คลองเตย', nameEn: 'Khlong Toei', tambons: [
-      { name: 'คลองเตย', nameEn: 'Khlong Toei', zip: '10110' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'วัฒนา', nameEn: 'Vadhana', tambons: [
-      { name: 'คลองเตยเหนือ', nameEn: 'Khlong Toei Nuea', zip: '10110' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'จตุจักร', nameEn: 'Chatuchak', tambons: [
-      { name: 'จตุจักร', nameEn: 'Chatuchak', zip: '10900' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'บางเขน', nameEn: 'Bang Khen', tambons: [
-      { name: 'อนุสาวรีย์', nameEn: 'Anusawari', zip: '10220' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ห้วยขวาง', nameEn: 'Huai Khwang', tambons: [
-      { name: 'ห้วยขวาง', nameEn: 'Huai Khwang', zip: '10310' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'พญาไท', nameEn: 'Phaya Thai', tambons: [
-      { name: 'สามเสนใน', nameEn: 'Samsen Nai', zip: '10400' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'สมุทรปราการ', nameEn: 'Samut Prakan', amphoes: [
-    { name: 'เมืองสมุทรปราการ', nameEn: 'Mueang Samut Prakan', tambons: [
-      { name: 'ปากน้ำ', nameEn: 'Pak Nam', zip: '10270' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'บางพลี', nameEn: 'Bang Phli', tambons: [
-      { name: 'บางพลีใหญ่', nameEn: 'Bang Phli Yai', zip: '10540' },
-      { name: 'ราชาเทวะ (สุวรรณภูมิ)', nameEn: 'Racha Thewa', zip: '10540' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'พระประแดง', nameEn: 'Phra Pradaeng', tambons: [
-      { name: 'ตลาด', nameEn: 'Talat', zip: '10130' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'นนทบุรี', nameEn: 'Nonthaburi', amphoes: [
-    { name: 'เมืองนนทบุรี', nameEn: 'Mueang Nonthaburi', tambons: [
-      { name: 'สวนใหญ่', nameEn: 'Suan Yai', zip: '11000' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ปากเกร็ด', nameEn: 'Pak Kret', tambons: [
-      { name: 'ปากเกร็ด', nameEn: 'Pak Kret', zip: '11120' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'บางบัวทอง', nameEn: 'Bang Bua Thong', tambons: [
-      { name: 'บางบัวทอง', nameEn: 'Bang Bua Thong', zip: '11110' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'ปทุมธานี', nameEn: 'Pathum Thani', amphoes: [
-    { name: 'เมืองปทุมธานี', nameEn: 'Mueang Pathum Thani', tambons: [
-      { name: 'บางกะดี', nameEn: 'Bang Kadi', zip: '12000' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'คลองหลวง', nameEn: 'Khlong Luang', tambons: [
-      { name: 'คลองหนึ่ง', nameEn: 'Khlong Nueng', zip: '12120' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ธัญบุรี', nameEn: 'Thanyaburi', tambons: [
-      { name: 'รังสิต', nameEn: 'Rangsit', zip: '12110' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'พระนครศรีอยุธยา', nameEn: 'Phra Nakhon Si Ayutthaya', amphoes: [
-    { name: 'พระนครศรีอยุธยา', nameEn: 'Phra Nakhon Si Ayutthaya', tambons: [
-      { name: 'ประตูชัย', nameEn: 'Pratu Chai', zip: '13000' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'บางปะอิน', nameEn: 'Bang Pa-in', tambons: [
-      { name: 'บ้านเลน', nameEn: 'Ban Len', zip: '13160' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'อ่างทอง', nameEn: 'Ang Thong', amphoes: [
-    { name: 'เมืองอ่างทอง', nameEn: 'Mueang Ang Thong', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'ลพบุรี', nameEn: 'Lopburi', amphoes: [
-    { name: 'เมืองลพบุรี', nameEn: 'Mueang Lopburi', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'สิงห์บุรี', nameEn: 'Sing Buri', amphoes: [
-    { name: 'เมืองสิงห์บุรี', nameEn: 'Mueang Sing Buri', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'ชัยนาท', nameEn: 'Chai Nat', amphoes: [
-    { name: 'เมืองชัยนาท', nameEn: 'Mueang Chai Nat', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'สระบุรี', nameEn: 'Saraburi', amphoes: [
-    { name: 'เมืองสระบุรี', nameEn: 'Mueang Saraburi', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'ชลบุรี', nameEn: 'Chonburi', amphoes: [
-    { name: 'เมืองชลบุรี', nameEn: 'Mueang Chonburi', tambons: [
-      { name: 'บางปลาซ่อม', nameEn: 'Bang Pla Som', zip: '20000' },
-      { name: 'แสนสุข (บางแสน)', nameEn: 'Saen Suk', zip: '20130' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'บางละมุง (พัทยา)', nameEn: 'Bang Lamung (Pattaya)', tambons: [
-      { name: 'พัทยา', nameEn: 'Pattaya', zip: '20150' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ศรีราชา', nameEn: 'Si Racha', tambons: [
-      { name: 'แหลมฉบัง', nameEn: 'Laem Chabang', zip: '20230' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'สัตหีบ', nameEn: 'Sattahip', tambons: [
-      { name: 'สัตหีบ', nameEn: 'Sattahip', zip: '20180' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'ระยอง', nameEn: 'Rayong', amphoes: [
-    { name: 'เมืองระยอง', nameEn: 'Mueang Rayong', tambons: [
-      { name: 'ท่าประดู่', nameEn: 'Tha Pradu', zip: '21000' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ปลวกแดง', nameEn: 'Pluak Daeng', tambons: [
-      { name: 'ปลวกแดง', nameEn: 'Pluak Daeng', zip: '21140' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'แกลง', nameEn: 'Klaeng', tambons: [
-      { name: 'ทางเกวียน', nameEn: 'Thang Kwian', zip: '21110' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'จันทบุรี', nameEn: 'Chanthaburi', amphoes: [
-    { name: 'เมืองจันทบุรี', nameEn: 'Mueang Chanthaburi', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'ตราด', nameEn: 'Trat', amphoes: [
-    { name: 'เมืองตราด', nameEn: 'Mueang Trat', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'ฉะเชิงเทรา', nameEn: 'Chachoengsao', amphoes: [
-    { name: 'เมืองฉะเชิงเทรา', nameEn: 'Mueang Chachoengsao', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'ปราจีนบุรี', nameEn: 'Prachinburi', amphoes: [
-    { name: 'เมืองปราจีนบุรี', nameEn: 'Mueang Prachinburi', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'นครนายก', nameEn: 'Nakhon Nayok', amphoes: [
-    { name: 'เมืองนครนายก', nameEn: 'Mueang Nakhon Nayok', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'สระแก้ว', nameEn: 'Sa Kaeo', amphoes: [
-    { name: 'เมืองสระแก้ว', nameEn: 'Mueang Sa Kaeo', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'นครราชสีมา', nameEn: 'Nakhon Ratchasima (Korat)', amphoes: [
-    { name: 'เมืองนครราชสีมา', nameEn: 'Mueang Nakhon Ratchasima', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '30000' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ปากช่อง', nameEn: 'Pak Chong', tambons: [
-      { name: 'ปากช่อง', nameEn: 'Pak Chong', zip: '30130' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'วังน้ำเขียว', nameEn: 'Wang Nam Khieo', tambons: [
-      { name: 'วังน้ำเขียว', nameEn: 'Wang Nam Khieo', zip: '30370' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'บุรีรัมย์', nameEn: 'Buriram', amphoes: [
-    { name: 'เมืองบุรีรัมย์', nameEn: 'Mueang Buriram', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'สุรินทร์', nameEn: 'Surin', amphoes: [
-    { name: 'เมืองสุรินทร์', nameEn: 'Mueang Surin', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'ศรีสะเกษ', nameEn: 'Sisaket', amphoes: [
-    { name: 'เมืองศรีสะเกษ', nameEn: 'Mueang Sisaket', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'อุบลราชธานี', nameEn: 'Ubon Ratchathani', amphoes: [
-    { name: 'เมืองอุบลราชธานี', nameEn: 'Mueang Ubon Ratchathani', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'ยโสธร', nameEn: 'Yasothon', amphoes: [
-    { name: 'เมืองยโสธร', nameEn: 'Mueang Yasothon', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'ชัยภูมิ', nameEn: 'Chaiyaphum', amphoes: [
-    { name: 'เมืองชัยภูมิ', nameEn: 'Mueang Chaiyaphum', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'อำนาจเจริญ', nameEn: 'Amnat Charoen', amphoes: [
-    { name: 'เมืองอำนาจเจริญ', nameEn: 'Mueang Amnat Charoen', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'บึงกาฬ', nameEn: 'Bueng Kan', amphoes: [
-    { name: 'เมืองบึงกาฬ', nameEn: 'Mueang Bueng Kan', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'หนองบัวลำภู', nameEn: 'Nong Bua Lamphu', amphoes: [
-    { name: 'เมืองหนองบัวลำภู', nameEn: 'Mueang Nong Bua Lamphu', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'ขอนแก่น', nameEn: 'Khon Kaen', amphoes: [
-    { name: 'เมืองขอนแก่น', nameEn: 'Mueang Khon Kaen', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '40000' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ชุมแพ', nameEn: 'Chum Phae', tambons: [
-      { name: 'ชุมแพ', nameEn: 'Chum Phae', zip: '40130' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'บ้านไผ่', nameEn: 'Ban Phai', tambons: [
-      { name: 'บ้านไผ่', nameEn: 'Ban Phai', zip: '40110' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'อุดรธานี', nameEn: 'Udon Thani', amphoes: [
-    { name: 'เมืองอุดรธานี', nameEn: 'Mueang Udon Thani', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'เลย', nameEn: 'Loei', amphoes: [
-    { name: 'เมืองเลย', nameEn: 'Mueang Loei', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'หนองคาย', nameEn: 'Nong Khai', amphoes: [
-    { name: 'เมืองหนองคาย', nameEn: 'Mueang Nong Khai', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'มหาสารคาม', nameEn: 'Maha Sarakham', amphoes: [
-    { name: 'เมืองมหาสารคาม', nameEn: 'Mueang Maha Sarakham', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'ร้อยเอ็ด', nameEn: 'Roi Et', amphoes: [
-    { name: 'เมืองร้อยเอ็ด', nameEn: 'Mueang Roi Et', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'กาฬสินธุ์', nameEn: 'Kalasin', amphoes: [
-    { name: 'เมืองกาฬสินธุ์', nameEn: 'Mueang Kalasin', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'สกลนคร', nameEn: 'Sakon Nakhon', amphoes: [
-    { name: 'เมืองสกลนคร', nameEn: 'Mueang Sakon Nakhon', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'นครพนม', nameEn: 'Nakhon Phanom', amphoes: [
-    { name: 'เมืองนครพนม', nameEn: 'Mueang Nakhon Phanom', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'มุกดาหาร', nameEn: 'Mukdahan', amphoes: [
-    { name: 'เมืองมุกดาหาร', nameEn: 'Mueang Mukdahan', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'เชียงใหม่', nameEn: 'Chiang Mai', amphoes: [
-    { name: 'เมืองเชียงใหม่', nameEn: 'Mueang Chiang Mai', tambons: [
-      { name: 'ศรีภูมิ', nameEn: 'Sri Phum', zip: '50200' },
-      { name: 'สุเทพ', nameEn: 'Suthep', zip: '50200' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'แม่ริม', nameEn: 'Mae Rim', tambons: [
-      { name: 'ริมใต้', nameEn: 'Rim Tai', zip: '50180' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'หางดง', nameEn: 'Hang Dong', tambons: [
-      { name: 'หางดง', nameEn: 'Hang Dong', zip: '50230' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'ลำพูน', nameEn: 'Lamphun', amphoes: [
-    { name: 'เมืองลำพูน', nameEn: 'Mueang Lamphun', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'ลำปาง', nameEn: 'Lampang', amphoes: [
-    { name: 'เมืองลำปาง', nameEn: 'Mueang Lampang', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'อุตรดิตถ์', nameEn: 'Uttaradit', amphoes: [
-    { name: 'เมืองอุตรดิตถ์', nameEn: 'Mueang Uttaradit', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'แพร่', nameEn: 'Phrae', amphoes: [
-    { name: 'เมืองแพร่', nameEn: 'Mueang Phrae', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'น่าน', nameEn: 'Nan', amphoes: [
-    { name: 'เมืองน่าน', nameEn: 'Mueang Nan', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'พะเยา', nameEn: 'Phayao', amphoes: [
-    { name: 'เมืองพะเยา', nameEn: 'Mueang Phayao', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'เชียงราย', nameEn: 'Chiang Rai', amphoes: [
-    { name: 'เมืองเชียงราย', nameEn: 'Mueang Chiang Rai', tambons: [
-      { name: 'เวียง', nameEn: 'Wiang', zip: '57000' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'แม่สาย', nameEn: 'Mae Sai', tambons: [
-      { name: 'แม่สาย', nameEn: 'Mae Sai', zip: '57130' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'แม่ฮ่องสอน', nameEn: 'Mae Hong Son', amphoes: [
-    { name: 'เมืองแม่ฮ่องสอน', nameEn: 'Mueang Mae Hong Son', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'นครสวรรค์', nameEn: 'Nakhon Sawan', amphoes: [
-    { name: 'เมืองนครสวรรค์', nameEn: 'Mueang Nakhon Sawan', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'อุทัยธานี', nameEn: 'Uthai Thani', amphoes: [
-    { name: 'เมืองอุทัยธานี', nameEn: 'Mueang Uthai Thani', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'กำแพงเพชร', nameEn: 'Kamphaeng Phet', amphoes: [
-    { name: 'เมืองกำแพงเพชร', nameEn: 'Mueang Kamphaeng Phet', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'ตาก', nameEn: 'Tak', amphoes: [
-    { name: 'เมืองตาก', nameEn: 'Mueang Tak', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'สุโขทัย', nameEn: 'Sukhothai', amphoes: [
-    { name: 'เมืองสุโขทัย', nameEn: 'Mueang Sukhothai', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'พิษณุโลก', nameEn: 'Phitsanulok', amphoes: [
-    { name: 'เมืองพิษณุโลก', nameEn: 'Mueang Phitsanulok', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'พิจิตร', nameEn: 'Phichit', amphoes: [
-    { name: 'เมืองพิจิตร', nameEn: 'Mueang Phichit', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'เพชรบูรณ์', nameEn: 'Phetchabun', amphoes: [
-    { name: 'เมืองเพชรบูรณ์', nameEn: 'Mueang Phetchabun', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'ราชบุรี', nameEn: 'Ratchaburi', amphoes: [
-    { name: 'เมืองราชบุรี', nameEn: 'Mueang Ratchaburi', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'กาญจนบุรี', nameEn: 'Kanchanaburi', amphoes: [
-    { name: 'เมืองกาญจนบุรี', nameEn: 'Mueang Kanchanaburi', tambons: [
-      { name: 'บ้านเหนือ', nameEn: 'Ban Nuea', zip: '71000' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ท่าม่วง', nameEn: 'Tha Muang', tambons: [
-      { name: 'ท่าม่วง', nameEn: 'Tha Muang', zip: '71110' },
-      { name: 'วังขนาย', nameEn: 'Wang Khanai', zip: '71110' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ทองผาภูมิ', nameEn: 'Thong Pha Phum', tambons: [
-      { name: 'ท่าขนุน', nameEn: 'Tha Khanun', zip: '71180' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'สุพรรณบุรี', nameEn: 'Suphan Buri', amphoes: [
-    { name: 'เมืองสุพรรณบุรี', nameEn: 'Mueang Suphan Buri', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'นครปฐม', nameEn: 'Nakhon Pathom', amphoes: [
-    { name: 'เมืองนครปฐม', nameEn: 'Mueang Nakhon Pathom', tambons: [
-      { name: 'พระปฐมเจดีย์', nameEn: 'Phra Pathom Chedi', zip: '73000' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'สามพราน', nameEn: 'Sam Phran', tambons: [
-      { name: 'สามพราน', nameEn: 'Sam Phran', zip: '73110' },
-      { name: 'ไร่ขิง', nameEn: 'Rai Khing', zip: '73210' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'พุทธมณฑล', nameEn: 'Phutthamonthon', tambons: [
-      { name: 'ศาลายา', nameEn: 'Salaya', zip: '73150' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'สมุทรสาคร', nameEn: 'Samut Sakhon', amphoes: [
-    { name: 'เมืองสมุทรสาคร', nameEn: 'Mueang Samut Sakhon', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'สมุทรสงคราม', nameEn: 'Samut Songkhram', amphoes: [
-    { name: 'เมืองสมุทรสงคราม', nameEn: 'Mueang Samut Songkhram', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'เพชรบุรี', nameEn: 'Phetchaburi', amphoes: [
-    { name: 'เมืองเพชรบุรี', nameEn: 'Mueang Phetchaburi', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'ประจวบคีรีขันธ์', nameEn: 'Prachuap Khiri Khan', amphoes: [
-    { name: 'เมืองประจวบคีรีขันธ์', nameEn: 'Mueang Prachuap Khiri Khan', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'นครศรีธรรมราช', nameEn: 'Nakhon Si Thammarat', amphoes: [
-    { name: 'เมืองนครศรีธรรมราช', nameEn: 'Mueang Nakhon Si Thammarat', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'กระบี่', nameEn: 'Krabi', amphoes: [
-    { name: 'เมืองกระบี่', nameEn: 'Mueang Krabi', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'พังงา', nameEn: 'Phang Nga', amphoes: [
-    { name: 'เมืองพังงา', nameEn: 'Mueang Phang Nga', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'ภูเก็ต', nameEn: 'Phuket', amphoes: [
-    { name: 'เมืองภูเก็ต', nameEn: 'Mueang Phuket', tambons: [
-      { name: 'ตลาดใหญ่', nameEn: 'Talat Yai', zip: '83000' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'กะทู้ (ป่าตอง)', nameEn: 'Kathu (Patong)', tambons: [
-      { name: 'ป่าตอง', nameEn: 'Patong', zip: '83150' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'สุราษฎร์ธานี', nameEn: 'Surat Thani', amphoes: [
-    { name: 'เมืองสุราษฎร์ธานี', nameEn: 'Mueang Surat Thani', tambons: [
-      { name: 'ตลาด', nameEn: 'Talat', zip: '84000' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'เกาะสมุย', nameEn: 'Koh Samui', tambons: [
-      { name: 'อ่างทอง', nameEn: 'Ang Thong', zip: '84140' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'ระนอง', nameEn: 'Ranong', amphoes: [
-    { name: 'เมืองระนอง', nameEn: 'Mueang Ranong', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'ชุมพร', nameEn: 'Chumphon', amphoes: [
-    { name: 'เมืองชุมพร', nameEn: 'Mueang Chumphon', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'สงขลา', nameEn: 'Songkhla', amphoes: [
-    { name: 'เมืองสงขลา', nameEn: 'Mueang Songkhla', tambons: [
-      { name: 'บ่อยาง', nameEn: 'Bo Yang', zip: '90000' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'หาดใหญ่', nameEn: 'Hat Yai', tambons: [
-      { name: 'หาดใหญ่', nameEn: 'Hat Yai', zip: '90110' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'สตูล', nameEn: 'Satun', amphoes: [
-    { name: 'เมืองสตูล', nameEn: 'Mueang Satun', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'ตรัง', nameEn: 'Trang', amphoes: [
-    { name: 'เมืองตรัง', nameEn: 'Mueang Trang', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'พัทลุง', nameEn: 'Phatthalung', amphoes: [
-    { name: 'เมืองพัทลุง', nameEn: 'Mueang Phatthalung', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'ปัตตานี', nameEn: 'Pattani', amphoes: [
-    { name: 'เมืองปัตตานี', nameEn: 'Mueang Pattani', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'ยะลา', nameEn: 'Yala', amphoes: [
-    { name: 'เมืองยะลา', nameEn: 'Mueang Yala', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'นราธิวาส', nameEn: 'Narathiwat', amphoes: [
-    { name: 'เมืองนราธิวาส', nameEn: 'Mueang Narathiwat', tambons: [
-      { name: 'ในเมือง', nameEn: 'Nai Mueang', zip: '' },
-      { name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }
-    ] },
-    { name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }
-  ]},
-  { name: 'ระบุจังหวัดอื่น / Other', nameEn: 'Other Province', amphoes: [{ name: 'ระบุอำเภออื่น / Other', nameEn: 'Other District', tambons: [{ name: 'ระบุตำบลอื่น / Other', nameEn: 'Other Sub-District', zip: '' }] }] }
-];
+    // ==========================================================================
+    // OFFICIAL THAILAND GEOGRAPHIC ADDRESS & POSTAL CODE ENGINE (77 PROVINCES, 928 DISTRICTS, 955 ZIPCODES)
+    // ==========================================================================
+    const THAI_ADDRESS_DATA = (typeof window !== 'undefined' && window.THAI_PROVINCES_DATA) || (typeof THAI_PROVINCES_DATA !== 'undefined' ? THAI_PROVINCES_DATA : []);
+    const THAI_POSTAL_MAP = (typeof window !== 'undefined' && window.THAI_ZIPCODE_LOOKUP) || (typeof THAI_ZIPCODE_LOOKUP !== 'undefined' ? THAI_ZIPCODE_LOOKUP : {});
 
-// ZIPCODE 2-DIGIT PREFIX AUTO-LOOKUP MAP (FOR INSTANT AUTO-FILL OF ALL 77 PROVINCES)
-const ZIPCODE_PROVINCE_MAP = {
-  '10': 'กรุงเทพมหานคร', '11': 'นนทบุรี', '12': 'ปทุมธานี', '13': 'พระนครศรีอยุธยา', '14': 'อ่างทอง',
-  '15': 'ลพบุรี', '16': 'สิงห์บุรี', '17': 'ชัยนาท', '18': 'สระบุรี', '20': 'ชลบุรี',
-  '21': 'ระยอง', '22': 'จันทบุรี', '23': 'ตราด', '24': 'ฉะเชิงเทรา', '25': 'ปราจีนบุรี',
-  '26': 'นครนายก', '27': 'สระแก้ว', '30': 'นครราชสีมา', '31': 'บุรีรัมย์', '32': 'สุรินทร์',
-  '33': 'ศรีสะเกษ', '34': 'อุบลราชธานี', '35': 'ยโสธร', '36': 'ชัยภูมิ', '37': 'อำนาจเจริญ',
-  '38': 'บึงกาฬ', '39': 'หนองบัวลำภู', '40': 'ขอนแก่น', '41': 'อุดรธานี', '42': 'เลย',
-  '43': 'หนองคาย', '44': 'มหาสารคาม', '45': 'ร้อยเอ็ด', '46': 'กาฬสินธุ์', '47': 'สกลนคร',
-  '48': 'นครพนม', '49': 'มุกดาหาร', '50': 'เชียงใหม่', '51': 'ลำพูน', '52': 'ลำปาง',
-  '53': 'อุตรดิตถ์', '54': 'แพร่', '55': 'น่าน', '56': 'พะเยา', '57': 'เชียงราย',
-  '58': 'แม่ฮ่องสอน', '60': 'นครสวรรค์', '61': 'อุทัยธานี', '62': 'กำแพงเพชร', '63': 'ตาก',
-  '64': 'สุโขทัย', '65': 'พิษณุโลก', '66': 'พิจิตร', '67': 'เพชรบูรณ์', '70': 'ราชบุรี',
-  '71': 'กาญจนบุรี', '72': 'สุพรรณบุรี', '73': 'นครปฐม', '74': 'สมุทรสาคร', '75': 'สมุทรสงคราม',
-  '76': 'เพชรบุรี', '77': 'ประจวบคีรีขันธ์', '80': 'นครศรีธรรมราช', '81': 'กระบี่', '82': 'พังงา',
-  '83': 'ภูเก็ต', '84': 'สุราษฎร์ธานี', '85': 'ระนอง', '86': 'ชุมพร', '90': 'สงขลา',
-  '91': 'สตูล', '92': 'ตรัง', '93': 'พัทลุง', '94': 'ปัตตานี', '95': 'ยะลา', '96': 'นราธิวาส'
-};
+    // SMART THAI ADDRESS PARSER HELPER
+    // Automatically extracts { zipcode, province, amphoe, tambon, addressDetail }
+    // Handles Google Maps format: "RW26+2MQ ตำบล ช่องสาริกา อำเภอพัฒนานิคม ลพบุรี 15220"
+    function parseThaiAddressString(rawStr) {
+      if (!rawStr || typeof rawStr !== 'string') return null;
+      let text = rawStr.trim();
+      let zipcode = '';
+      let province = '';
+      let amphoe = '';
+      let tambon = '';
 
+      // 1. Extract 5-digit zipcode
+      const zipMatch = text.match(/\b(\d{5})\b/);
+      if (zipMatch) {
+        zipcode = zipMatch[1];
+        text = text.replace(zipMatch[0], ' ');
+      }
 
+      // 2. Extract Sub-district (ตำบล / แขวง / ต.)
+      const tambonMatch = text.match(/(?:ตำบล|แขวง|ต\.)\s*([^\s,]+)/);
+      if (tambonMatch) {
+        tambon = tambonMatch[1].trim();
+        text = text.replace(tambonMatch[0], ' ');
+      }
+
+      // 3. Extract District (อำเภอ / เขต / อ.)
+      const amphoeMatch = text.match(/(?:อำเภอ|เขต|อ\.)\s*([^\s,]+)/);
+      if (amphoeMatch) {
+        amphoe = amphoeMatch[1].trim();
+        text = text.replace(amphoeMatch[0], ' ');
+      }
+
+      // 4. Extract Province (จังหวัด / จ. or match against 77 provinces)
+      const provMatch = text.match(/(?:จังหวัด|จ\.)\s*([^\s,]+)/);
+      if (provMatch) {
+        province = provMatch[1].trim();
+        text = text.replace(provMatch[0], ' ');
+      } else {
+        for (const pr of THAI_ADDRESS_DATA) {
+          if (text.includes(pr.name)) {
+            province = pr.name;
+            text = text.replace(pr.name, ' ');
+            break;
+          }
+        }
+      }
+
+      // 5. Cross-check / Auto-fill from THAI_POSTAL_MAP if zipcode was found
+      if (zipcode && THAI_POSTAL_MAP[zipcode]) {
+        const zipInfo = THAI_POSTAL_MAP[zipcode];
+        if (!province) province = zipInfo.p;
+        if (!amphoe) amphoe = zipInfo.a;
+        if (!tambon && zipInfo.t && zipInfo.t.length === 1) {
+          tambon = zipInfo.t[0];
+        }
+      }
+
+      // 6. Remaining text is cleaned addressDetail (e.g. Plus Code RW26+2MQ)
+      let addressDetail = text.replace(/\s+/g, ' ').trim();
+
+      return {
+        zipcode,
+        province,
+        amphoe,
+        tambon,
+        addressDetail
+      };
+    }
 function ProjectFormModal({ project, onClose, onSave, lang = 'th' }) {
       const t = (key) => translations[lang]?.[key] || translations['th']?.[key] || key;
       const DRAFT_KEY = 'project_hub_form_draft_v1';
@@ -8720,48 +9151,41 @@ function ProjectFormModal({ project, onClose, onSave, lang = 'th' }) {
       const [selectedTambon, setSelectedTambon] = useState(project?.tambon || '');
       const [addressDetail, setAddressDetail] = useState(project?.addressDetail || '');
 
-      // Available Districts based on selected Province
+      // Available Districts based on selected Province (All 928 Districts)
       const availableAmphoes = React.useMemo(() => {
-        const provObj = THAI_ADDRESS_DATA.find(p => p.name === selectedProvince);
+        if (!selectedProvince) return [];
+        const provObj = THAI_ADDRESS_DATA.find(p => p.name === selectedProvince || p.nameEn === selectedProvince);
         return provObj ? provObj.amphoes : [];
       }, [selectedProvince]);
 
-      // Available Sub-districts based on selected District
+      // Available Sub-districts based on selected District and Zipcode
       const availableTambons = React.useMemo(() => {
-        const amphoeObj = availableAmphoes.find(a => a.name === selectedAmphoe);
-        return amphoeObj ? amphoeObj.tambons : [];
-      }, [availableAmphoes, selectedAmphoe]);
+        if (!selectedProvince || !selectedAmphoe) return [];
+        const tambonSet = new Set();
+        // If zipcode is typed and matches this district, prioritize its tambons
+        if (zipcode && THAI_POSTAL_MAP[zipcode] && THAI_POSTAL_MAP[zipcode].a === selectedAmphoe) {
+          return THAI_POSTAL_MAP[zipcode].t.map(tName => ({ name: tName }));
+        }
+        // Otherwise, find all tambons in this amphoe from THAI_POSTAL_MAP
+        for (const [z, info] of Object.entries(THAI_POSTAL_MAP)) {
+          if ((info.p === selectedProvince || info.pEn === selectedProvince) && (info.a === selectedAmphoe || info.aEn === selectedAmphoe)) {
+            info.t.forEach(tName => tambonSet.add(tName));
+          }
+        }
+        return Array.from(tambonSet).sort().map(tName => ({ name: tName }));
+      }, [selectedProvince, selectedAmphoe, zipcode]);
 
-      // Handle Typing Zipcode (5 digits guaranteed auto-lookup)
+      // Handle Typing Zipcode (5 digits instant exact lookup for all 955 Thai zipcodes)
       const handleZipcodeChange = (val) => {
         setZipcode(val);
-        if (val.length === 5) {
-          // 1. First search for exact match on 5-digit zipcode in THAI_ADDRESS_DATA
-          for (const prov of THAI_ADDRESS_DATA) {
-            for (const amph of prov.amphoes) {
-              for (const tam of amph.tambons) {
-                if (tam.zip === val) {
-                  setSelectedProvince(prov.name);
-                  setSelectedAmphoe(amph.name);
-                  setSelectedTambon(tam.name);
-                  return;
-                }
-              }
-            }
-          }
-          // 2. Fallback to 2-digit zipcode prefix map for 100% instant auto-province & district fill
-          const prefix = val.substring(0, 2);
-          const matchedProv = ZIPCODE_PROVINCE_MAP[prefix];
-          if (matchedProv) {
-            setSelectedProvince(matchedProv);
-            const provObj = THAI_ADDRESS_DATA.find(p => p.name === matchedProv);
-            if (provObj && provObj.amphoes.length > 0) {
-              const firstAmph = provObj.amphoes[0];
-              setSelectedAmphoe(firstAmph.name);
-              if (firstAmph.tambons.length > 0) {
-                setSelectedTambon(firstAmph.tambons[0].name);
-              }
-            }
+        if (val.length === 5 && THAI_POSTAL_MAP[val]) {
+          const info = THAI_POSTAL_MAP[val];
+          setSelectedProvince(info.p);
+          setSelectedAmphoe(info.a);
+          if (info.t && info.t.length === 1) {
+            setSelectedTambon(info.t[0]);
+          } else if (selectedTambon && !info.t.includes(selectedTambon)) {
+            setSelectedTambon('');
           }
         }
       };
@@ -8782,8 +9206,28 @@ function ProjectFormModal({ project, onClose, onSave, lang = 'th' }) {
       // Handle Sub-district Selection (Auto-fill zip)
       const handleTambonChange = (tamName) => {
         setSelectedTambon(tamName);
-        const tamObj = availableTambons.find(t => t.name === tamName);
-        if (tamObj && tamObj.zip) setZipcode(tamObj.zip);
+        if (!tamName) return;
+        // Search in THAI_POSTAL_MAP for exact match of this tambon in this amphoe
+        for (const [z, info] of Object.entries(THAI_POSTAL_MAP)) {
+          if ((info.a === selectedAmphoe || info.aEn === selectedAmphoe) && info.t.includes(tamName)) {
+            setZipcode(z);
+            break;
+          }
+        }
+      };
+
+      // Smart Address Paste & Auto-Parser Input State
+      const [smartAddressInput, setSmartAddressInput] = useState('');
+      const handleSmartAddressPaste = (rawText) => {
+        setSmartAddressInput(rawText);
+        const parsed = parseThaiAddressString(rawText);
+        if (parsed) {
+          if (parsed.zipcode) setZipcode(parsed.zipcode);
+          if (parsed.province) setSelectedProvince(parsed.province);
+          if (parsed.amphoe) setSelectedAmphoe(parsed.amphoe);
+          if (parsed.tambon) setSelectedTambon(parsed.tambon);
+          if (parsed.addressDetail) setAddressDetail(parsed.addressDetail);
+        }
       };
 
       // Synthesize full location string whenever address fields change
@@ -8934,6 +9378,7 @@ function ProjectFormModal({ project, onClose, onSave, lang = 'th' }) {
           warrantyYears: Number(warrantyYears),
           warrantyStartDate,
           documents,
+          milestones: project?.milestones || [],
           tasks: project?.tasks || [],
           logs: project?.logs || [],
           expenses: project?.expenses || [],
@@ -9019,6 +9464,42 @@ function ProjectFormModal({ project, onClose, onSave, lang = 'th' }) {
                   <span>{lang === 'en' ? 'Project Location & Geographic Address' : 'สถานที่ตั้งและที่อยู่โครงการ (Cascading Address)'}</span>
                 </div>
 
+                {/* SMART ADDRESS AUTO-PARSE BAR */}
+                <div style={{
+                  marginBottom: 14, 
+                  background: 'rgba(6, 182, 212, 0.08)', 
+                  border: '1px dashed rgba(6, 182, 212, 0.4)', 
+                  borderRadius: 10, 
+                  padding: '10px 14px'
+                }}>
+                  <div style={{fontSize:'0.75rem', fontWeight:700, color:'var(--accent-cyan)', marginBottom:6, display:'flex', alignItems:'center', gap:6}}>
+                    <span>✨</span>
+                    <span>{lang === 'en' ? 'Smart Address Auto-Parser (Paste Google Maps / Full Address to Auto-fill all fields)' : 'ระบบแยกที่อยู่อัจฉริยะ (วางที่อยู่เต็มจาก Google Maps หรือเอกสารสัญญาเพื่อแยกช่องอัตโนมัติ)'}</span>
+                  </div>
+                  <div style={{display:'flex', gap:8}}>
+                    <input 
+                      type="text" 
+                      className="form-input" 
+                      style={{fontSize:'0.82rem', borderColor:'rgba(6, 182, 212, 0.3)'}}
+                      placeholder={lang === 'en' ? 'e.g. RW26+2MQ ตำบล ช่องสาริกา อำเภอพัฒนานิคม ลพบุรี 15220' : 'เช่น RW26+2MQ ตำบล ช่องสาริกา อำเภอพัฒนานิคม ลพบุรี 15220'} 
+                      value={smartAddressInput}
+                      onChange={e => handleSmartAddressPaste(e.target.value)}
+                    />
+                    {smartAddressInput && (
+                      <button 
+                        type="button" 
+                        className="btn-secondary" 
+                        style={{padding:'6px 12px', fontSize:'0.75rem', whiteSpace:'nowrap'}}
+                        onClick={() => {
+                          setSmartAddressInput('');
+                        }}
+                      >
+                        {lang === 'en' ? 'Clear' : 'ล้าง'}
+                      </button>
+                    )}
+                  </div>
+                </div>
+
                 {/* Top Row: 4 Columns (Zipcode, Province, District, Sub-district) */}
                 <div className="form-grid-4" style={{marginBottom:12}}>
                   <div className="form-group">
@@ -9026,7 +9507,7 @@ function ProjectFormModal({ project, onClose, onSave, lang = 'th' }) {
                     <input 
                       type="text" 
                       className="form-input" 
-                      placeholder="10110, 50000" 
+                      placeholder="15220, 10110, 50000" 
                       maxLength={5} 
                       value={zipcode} 
                       onChange={e => handleZipcodeChange(e.target.value)} 
@@ -9063,7 +9544,7 @@ function ProjectFormModal({ project, onClose, onSave, lang = 'th' }) {
                       <option value="">{lang === 'en' ? '-- Select Sub-District --' : '-- เลือกตำบล/แขวง --'}</option>
                       {availableTambons.map(t => (
                         <option key={t.name} value={t.name}>
-                          {lang === 'en' ? (t.nameEn || t.name) : t.name} ({t.zip})
+                          {lang === 'en' ? (t.nameEn || t.name) : t.name}
                         </option>
                       ))}
                     </select>
@@ -9303,6 +9784,118 @@ function ProjectFormModal({ project, onClose, onSave, lang = 'th' }) {
           });
           if (editingExpenseId === expId) handleCancelEditExpense();
         }
+      };
+
+      // Milestones Management State & Handlers
+      const [milestoneTitle, setMilestoneTitle] = useState('');
+      const [milestoneAmount, setMilestoneAmount] = useState('');
+      const [milestonePercent, setMilestonePercent] = useState('');
+      const [milestoneDueDate, setMilestoneDueDate] = useState('');
+      const [milestoneInvoiceDate, setMilestoneInvoiceDate] = useState('');
+      const [milestonePaidDate, setMilestonePaidDate] = useState('');
+      const [milestoneStatus, setMilestoneStatus] = useState('pending'); // 'pending' | 'invoiced' | 'paid' | 'overdue'
+      const [milestoneNotes, setMilestoneNotes] = useState('');
+      const [editingMilestoneId, setEditingMilestoneId] = useState(null);
+
+      const handleSaveMilestone = (e) => {
+        if (e) e.preventDefault();
+        if (!milestoneTitle.trim()) return;
+
+        const projBudget = parseNumber(project.budget || project.costPlan || 0);
+        let finalAmount = parseNumber(milestoneAmount);
+        let finalPercent = parseFloat(milestonePercent) || 0;
+
+        if (finalAmount > 0 && finalPercent === 0 && projBudget > 0) {
+          finalPercent = parseFloat(((finalAmount / projBudget) * 100).toFixed(1));
+        } else if (finalPercent > 0 && finalAmount === 0 && projBudget > 0) {
+          finalAmount = Math.round((finalPercent / 100) * projBudget);
+        }
+
+        const currentMilestones = project.milestones || [];
+        let updatedMilestones;
+
+        if (editingMilestoneId) {
+          updatedMilestones = currentMilestones.map(m => m.id === editingMilestoneId ? {
+            ...m,
+            title: milestoneTitle.trim(),
+            amount: finalAmount,
+            percent: finalPercent,
+            dueDate: milestoneDueDate,
+            invoiceDate: milestoneInvoiceDate,
+            paidDate: milestonePaidDate,
+            status: milestoneStatus,
+            notes: milestoneNotes.trim()
+          } : m);
+        } else {
+          const newMilestone = {
+            id: 'm-' + Date.now(),
+            title: milestoneTitle.trim(),
+            amount: finalAmount,
+            percent: finalPercent,
+            dueDate: milestoneDueDate || new Date().toISOString().slice(0, 10),
+            invoiceDate: milestoneInvoiceDate,
+            paidDate: milestonePaidDate,
+            status: milestoneStatus,
+            notes: milestoneNotes.trim()
+          };
+          updatedMilestones = [...currentMilestones, newMilestone];
+        }
+
+        onUpdate({
+          ...project,
+          milestones: updatedMilestones
+        });
+
+        handleCancelEditMilestone();
+      };
+
+      const handleStartEditMilestone = (m) => {
+        setEditingMilestoneId(m.id);
+        setMilestoneTitle(m.title || '');
+        setMilestoneAmount(m.amount || '');
+        setMilestonePercent(m.percent || '');
+        setMilestoneDueDate(m.dueDate || '');
+        setMilestoneInvoiceDate(m.invoiceDate || '');
+        setMilestonePaidDate(m.paidDate || '');
+        setMilestoneStatus(m.status || 'pending');
+        setMilestoneNotes(m.notes || '');
+      };
+
+      const handleCancelEditMilestone = () => {
+        setEditingMilestoneId(null);
+        setMilestoneTitle('');
+        setMilestoneAmount('');
+        setMilestonePercent('');
+        setMilestoneDueDate('');
+        setMilestoneInvoiceDate('');
+        setMilestonePaidDate('');
+        setMilestoneStatus('pending');
+        setMilestoneNotes('');
+      };
+
+      const handleDeleteMilestone = (mId) => {
+        if (confirm(lang === 'en' ? 'Delete this payment milestone?' : 'ยืนยันการลบงวดงานนี้หรือไม่?')) {
+          const updatedMilestones = (project.milestones || []).filter(m => m.id !== mId);
+          onUpdate({
+            ...project,
+            milestones: updatedMilestones
+          });
+          if (editingMilestoneId === mId) handleCancelEditMilestone();
+        }
+      };
+
+      const handleQuickUpdateMilestoneStatus = (mId, nextStatus) => {
+        const todayStr = new Date().toISOString().slice(0, 10);
+        const updatedMilestones = (project.milestones || []).map(m => {
+          if (m.id === mId) {
+            const updated = { ...m, status: nextStatus };
+            if (nextStatus === 'invoiced' && !m.invoiceDate) updated.invoiceDate = todayStr;
+            if (nextStatus === 'paid' && !m.paidDate) updated.paidDate = todayStr;
+            return updated;
+          }
+          return m;
+        });
+        onUpdate({ ...project, milestones: updatedMilestones });
       };
 
       // Gantt Dates Edit State
@@ -9880,6 +10473,9 @@ function ProjectFormModal({ project, onClose, onSave, lang = 'th' }) {
                 <button className={`tab-btn ${activeTab === 'tasks' ? 'active' : ''}`} onClick={() => setActiveTab('tasks')}>
                   {t('tabTasks')} ({(project.tasks || []).length})
                 </button>
+                <button className={`tab-btn ${activeTab === 'milestones' ? 'active' : ''}`} onClick={() => setActiveTab('milestones')}>
+                  {t('tabMilestones')} ({(project.milestones || []).length})
+                </button>
                 <button className={`tab-btn ${activeTab === 'expenses' ? 'active' : ''}`} onClick={() => setActiveTab('expenses')}>
                   {lang === 'en' ? '💰 Actual Cost' : '💰 ค่าใช้จ่ายจริง (Actual Cost)'} ({(project.expenses || []).length})
                 </button>
@@ -10293,6 +10889,217 @@ function ProjectFormModal({ project, onClose, onSave, lang = 'th' }) {
                     );
                   })}
                 </div>
+              ) : activeTab === 'milestones' ? (
+                <div>
+                  {/* MILESTONE FINANCIAL METRICS & CORRELATION BANNER */}
+                  {(() => {
+                    const projBudget = parseNumber(project.budget || project.costPlan || 0);
+                    const milestonesList = project.milestones || [];
+                    const totalMilestoneSum = milestonesList.reduce((s, m) => s + parseNumber(m.amount || 0), 0);
+                    const totalBilledSum = milestonesList.filter(m => m.status === 'invoiced' || m.status === 'paid').reduce((s, m) => s + parseNumber(m.amount || 0), 0);
+                    const totalPaidSum = milestonesList.filter(m => m.status === 'paid').reduce((s, m) => s + parseNumber(m.amount || 0), 0);
+                    const totalPendingSum = milestonesList.filter(m => m.status === 'pending' || m.status === 'overdue').reduce((s, m) => s + parseNumber(m.amount || 0), 0);
+
+                    const billedPct = projBudget > 0 ? Math.round((totalBilledSum / projBudget) * 100) : 0;
+                    const paidPct = projBudget > 0 ? Math.round((totalPaidSum / projBudget) * 100) : 0;
+                    const physicalProgress = parseNumber(project.progress || 0);
+                    const correlationGap = physicalProgress - billedPct;
+
+                    return (
+                      <div style={{background:'var(--bg-input)', padding:16, borderRadius:'var(--radius-sm)', marginBottom:18, border:'1px solid var(--border-color)'}}>
+                        <div className="form-grid-4" style={{marginBottom:14}}>
+                          <div style={{background:'var(--bg-card)', padding:'10px 14px', borderRadius:10, border:'1px solid var(--border-color)'}}>
+                            <div style={{fontSize:'0.7rem', color:'var(--text-muted)', fontWeight:700}}>{lang === 'en' ? 'Contract Budget:' : 'มูลค่าสัญญารวม:'}</div>
+                            <div style={{fontSize:'1.05rem', fontWeight:900, color:'var(--accent-emerald)'}}>{formatCurrency(projBudget, lang)}</div>
+                          </div>
+                          <div style={{background:'var(--bg-card)', padding:'10px 14px', borderRadius:10, border:'1px solid var(--border-color)'}}>
+                            <div style={{fontSize:'0.7rem', color:'var(--text-muted)', fontWeight:700}}>{t('milestoneBilled')}:</div>
+                            <div style={{fontSize:'1.05rem', fontWeight:900, color:'var(--accent-cyan)'}}>{formatCurrency(totalBilledSum, lang)} <span style={{fontSize:'0.75rem'}}>({billedPct}%)</span></div>
+                          </div>
+                          <div style={{background:'var(--bg-card)', padding:'10px 14px', borderRadius:10, border:'1px solid var(--border-color)'}}>
+                            <div style={{fontSize:'0.7rem', color:'var(--text-muted)', fontWeight:700}}>{t('milestonePaid')}:</div>
+                            <div style={{fontSize:'1.05rem', fontWeight:900, color:'var(--accent-emerald)'}}>{formatCurrency(totalPaidSum, lang)} <span style={{fontSize:'0.75rem'}}>({paidPct}%)</span></div>
+                          </div>
+                          <div style={{background:'var(--bg-card)', padding:'10px 14px', borderRadius:10, border:'1px solid var(--border-color)'}}>
+                            <div style={{fontSize:'0.7rem', color:'var(--text-muted)', fontWeight:700}}>{t('milestonePending')}:</div>
+                            <div style={{fontSize:'1.05rem', fontWeight:900, color: totalPendingSum > 0 ? 'var(--accent-amber)' : 'var(--text-sub)'}}>{formatCurrency(totalPendingSum, lang)}</div>
+                          </div>
+                        </div>
+
+                        {/* Physical Progress vs Financial Billing Correlation Bar */}
+                        <div>
+                          <div style={{display:'flex', justifyContent:'space-between', fontSize:'0.78rem', marginBottom:6, fontWeight:600}}>
+                            <span style={{color:'var(--text-sub)'}}>📊 {t('milestoneCorrelation')}:</span>
+                            <span style={{color: correlationGap > 15 ? 'var(--accent-amber)' : (correlationGap < -15 ? 'var(--accent-rose)' : 'var(--accent-emerald)')}}>
+                              {correlationGap > 15 ? (lang === 'en' ? `⚠️ Work Ahead of Billing (+${correlationGap}%)` : `⚠️ ผลงานนำหน้าการวางบิล (+${correlationGap}%) ควรเร่งวางบิล`) :
+                               correlationGap < -15 ? (lang === 'en' ? `⚠️ Billed Ahead of Progress (${correlationGap}%)` : `⚠️ วางบิลเกินผลงานจริง (${correlationGap}%)`) :
+                               (lang === 'en' ? '✅ Billing Aligned with Progress' : '✅ การวางบิลสอดคล้องกับผลงานจริง')}
+                            </span>
+                          </div>
+                          <div style={{position:'relative', height:12, background:'rgba(255,255,255,0.06)', borderRadius:6, overflow:'hidden', display:'flex'}}>
+                            <div style={{width: `${physicalProgress}%`, height:'100%', background:'linear-gradient(90deg, #6366f1, #06b6d4)', opacity:0.85}} title={`Physical Progress: ${physicalProgress}%`}></div>
+                            <div style={{position:'absolute', top:0, left:0, width: `${billedPct}%`, height:'100%', borderRight:'3px solid #10b981', background:'rgba(16, 185, 129, 0.35)'}} title={`Financial Billed: ${billedPct}%`}></div>
+                          </div>
+                          <div style={{display:'flex', justifyContent:'space-between', fontSize:'0.68rem', color:'var(--text-muted)', marginTop:4}}>
+                            <span>🟣 งานจริง: {physicalProgress}%</span>
+                            <span>🟢 วางบิลแล้ว: {billedPct}%</span>
+                            <span>🔵 รับเงินแล้ว: {paidPct}%</span>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })()}
+
+                  {/* ADD / EDIT MILESTONE FORM */}
+                  <form onSubmit={handleSaveMilestone} style={{background:'rgba(255,255,255,0.03)', padding:16, border:'1px solid var(--border-color)', borderRadius:'var(--radius-sm)', marginBottom:20}}>
+                    <div style={{fontWeight:700, fontSize:'0.85rem', color:'var(--accent-cyan)', marginBottom:12, display:'flex', alignItems:'center', gap:6}}>
+                      <Icon name="creditCard" size={16} />
+                      <span>{editingMilestoneId ? (lang === 'en' ? '✏️ Edit Payment Milestone' : '✏️ แก้ไขข้อมูลแผนงวดงาน') : (lang === 'en' ? '➕ Add New Payment Milestone' : '➕ เพิ่มแผนงวดงานและกำหนดการวางบิลใหม่')}</span>
+                    </div>
+
+                    <div className="form-grid-3" style={{marginBottom:12}}>
+                      <div className="form-group" style={{gridColumn:'span 2'}}>
+                        <label className="form-label">{t('colMilestoneName')} *</label>
+                        <input 
+                          type="text" 
+                          required 
+                          className="form-input" 
+                          placeholder={lang === 'en' ? 'e.g. Milestone 1: Contract Signing & Engineering Design Approval (20%)' : 'เช่น งวดที่ 1: เซ็นสัญญาและอนุมัติแบบวิศวกรรม (20%)'} 
+                          value={milestoneTitle} 
+                          onChange={e => setMilestoneTitle(e.target.value)} 
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label className="form-label">{t('colMilestoneStatus')}</label>
+                        <select className="form-select" value={milestoneStatus} onChange={e => setMilestoneStatus(e.target.value)}>
+                          <option value="pending">⏳ {t('milestoneStatusPending')}</option>
+                          <option value="invoiced">📄 {t('milestoneStatusInvoiced')}</option>
+                          <option value="paid">✅ {t('milestoneStatusPaid')}</option>
+                          <option value="overdue">🚨 {t('milestoneStatusOverdue')}</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div className="form-grid-4" style={{marginBottom:12}}>
+                      <div className="form-group">
+                        <label className="form-label">{t('colMilestoneAmount')}</label>
+                        <input 
+                          type="number" 
+                          min="0" 
+                          step="any" 
+                          className="form-input" 
+                          placeholder="0.00" 
+                          value={milestoneAmount} 
+                          onChange={e => setMilestoneAmount(e.target.value)} 
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label className="form-label">{t('colMilestonePct')}</label>
+                        <input 
+                          type="number" 
+                          min="0" 
+                          max="100" 
+                          step="0.1" 
+                          className="form-input" 
+                          placeholder="20%" 
+                          value={milestonePercent} 
+                          onChange={e => setMilestonePercent(e.target.value)} 
+                        />
+                      </div>
+                      <div className="form-group">
+                        <label className="form-label">{t('colMilestoneDue')}</label>
+                        <input type="date" className="form-input" value={milestoneDueDate} onChange={e => setMilestoneDueDate(e.target.value)} />
+                      </div>
+                      <div className="form-group">
+                        <label className="form-label">{t('colMilestonePaidDate')}</label>
+                        <input type="date" className="form-input" value={milestonePaidDate} onChange={e => setMilestonePaidDate(e.target.value)} />
+                      </div>
+                    </div>
+
+                    <div style={{display:'flex', gap:10, justifyContent:'flex-end'}}>
+                      {editingMilestoneId && (
+                        <button type="button" className="btn btn-secondary" onClick={handleCancelEditMilestone}>
+                          {t('btnCancel')}
+                        </button>
+                      )}
+                      <button type="submit" className="btn btn-primary">
+                        <Icon name="save" size={15} />
+                        <span>{editingMilestoneId ? (lang === 'en' ? 'Update Milestone' : 'บันทึกแก้ไขงวดงาน') : t('milestoneAddBtn')}</span>
+                      </button>
+                    </div>
+                  </form>
+
+                  {/* MILESTONES DATA TABLE */}
+                  <div style={{overflowX:'auto'}}>
+                    <table className="data-table" style={{width:'100%', fontSize:'0.85rem'}}>
+                      <thead>
+                        <tr>
+                          <th style={{width:40}}>#</th>
+                          <th>{t('colMilestoneName')}</th>
+                          <th style={{width:105}}>{t('colMilestoneDue')}</th>
+                          <th style={{textAlign:'right', width:140}}>{t('colMilestoneAmount')}</th>
+                          <th style={{textAlign:'center', width:70}}>{t('colMilestonePct')}</th>
+                          <th style={{width:150, textAlign:'center'}}>{t('colMilestoneStatus')}</th>
+                          <th style={{width:90, textAlign:'center'}}>{lang === 'en' ? 'Actions' : 'จัดการ'}</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {(project.milestones || []).length === 0 ? (
+                          <tr>
+                            <td colSpan="7" style={{textAlign:'center', padding:24, color:'var(--text-muted)'}}>
+                              {lang === 'en' ? 'No payment milestones defined yet. Fill the form above to add contract milestones.' : 'ยังไม่ได้กำหนดงวดงานสำหรับโครงการนี้ สามารถเพิ่มงวดงานตามสัญญาได้ที่ฟอร์มด้านบนครับ'}
+                            </td>
+                          </tr>
+                        ) : (
+                          (project.milestones || []).map((m, idx) => (
+                            <tr key={m.id || idx}>
+                              <td>{idx + 1}</td>
+                              <td style={{fontWeight:700, color:'#ffffff'}}>
+                                {m.title}
+                                {m.notes && <div style={{fontSize:'0.75rem', color:'var(--text-muted)', fontWeight:400}}>{m.notes}</div>}
+                              </td>
+                              <td style={{color:'var(--text-sub)', whiteSpace:'nowrap'}}>{m.dueDate || '-'}</td>
+                              <td style={{textAlign:'right', fontWeight:800, color:'var(--accent-emerald)', whiteSpace:'nowrap'}}>
+                                ฿{parseFloat(m.amount || 0).toLocaleString()} บาท
+                              </td>
+                              <td style={{textAlign:'center', fontWeight:700, color:'var(--primary)'}}>
+                                {m.percent || 0}%
+                              </td>
+                              <td style={{textAlign:'center'}}>
+                                <span className={`milestone-status-badge milestone-${m.status || 'pending'}`}>
+                                  {m.status === 'paid' ? '✅ Paid (รับเงินแล้ว)' : m.status === 'invoiced' ? '📄 Invoiced (วางบิล)' : m.status === 'overdue' ? '🚨 Overdue (เกินกำหนด)' : '⏳ Pending (รอ)'}
+                                </span>
+                                <div style={{display:'flex', justifyContent:'center', gap:4, marginTop:4}}>
+                                  {m.status !== 'paid' && (
+                                    <button 
+                                      type="button" 
+                                      className="btn btn-secondary" 
+                                      style={{padding:'2px 6px', fontSize:'0.68rem'}}
+                                      onClick={() => handleQuickUpdateMilestoneStatus(m.id, m.status === 'pending' ? 'invoiced' : 'paid')}
+                                      title={m.status === 'pending' ? 'ปรับเป็นวางบิลแล้ว' : 'ปรับเป็นรับชำระแล้ว'}
+                                    >
+                                      {m.status === 'pending' ? '➔ วางบิล' : '➔ รับเงิน'}
+                                    </button>
+                                  )}
+                                </div>
+                              </td>
+                              <td style={{textAlign:'center'}}>
+                                <div style={{display:'flex', justifyContent:'center', gap:4}}>
+                                  <button type="button" className="btn-icon" title="Edit" onClick={() => handleStartEditMilestone(m)}>
+                                    <Icon name="edit" size={14} />
+                                  </button>
+                                  <button type="button" className="btn-icon" title="Delete" onClick={() => handleDeleteMilestone(m.id)}>
+                                    <Icon name="trash" size={14} color="var(--accent-rose)" />
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                          ))
+                        )}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               ) : activeTab === 'expenses' ? (
                 <div>
                   {/* KPI SUMMARY HEADER */}
@@ -10652,6 +11459,29 @@ function ProjectFormModal({ project, onClose, onSave, lang = 'th' }) {
                 <label htmlFor="import-file" className="btn btn-secondary" style={{width:'100%', justifyContent:'center', cursor:'pointer'}}>
                   <Icon name="upload" size={16} /> {t('backupImportBtn')}
                 </label>
+              </div>
+
+              <div style={{padding:16, border:'1px solid var(--border-color)', borderRadius:'var(--radius-sm)'}}>
+                <h4 style={{marginBottom:6}}>🔄 {lang === 'en' ? 'Reset to Default Sample Data' : 'โหลดข้อมูลตัวอย่างเริ่มต้น (Reset Demo Data)'}</h4>
+                <p style={{fontSize:'0.85rem', color:'var(--text-muted)', marginBottom:12}}>
+                  {lang === 'en' ? 'Reload the 9 original sample engineering projects with milestones & EVM.' : 'กู้คืนโครงการตัวอย่างเริ่มต้นทั้ง 9 โครงการพร้อมข้อมูลงวดเงินและ EVM'}
+                </p>
+                <button 
+                  type="button"
+                  className="btn btn-secondary" 
+                  onClick={() => {
+                    const pin = prompt(lang === 'en' ? 'Enter Security PIN (2332) to load default sample projects:' : 'กรุณากรอกรหัสความปลอดภัย (2332) เพื่อโหลดโครงการตัวอย่าง:');
+                    if (pin === SECURITY_PIN) {
+                      onImport(defaultProjects);
+                      CloudSyncService.seedInitialProjects(defaultProjects);
+                    } else if (pin !== null) {
+                      alert(lang === 'en' ? '❌ Invalid Security PIN' : '❌ รหัสผ่านความปลอดภัยไม่ถูกต้องค่ะ');
+                    }
+                  }} 
+                  style={{width:'100%', justifyContent:'center'}}
+                >
+                  <Icon name="refreshCw" size={16} /> {lang === 'en' ? 'Load Demo Projects (9 items)' : 'โหลด 9 โครงการตัวอย่าง'}
+                </button>
               </div>
             </div>
           </div>
